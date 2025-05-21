@@ -63,12 +63,15 @@ namespace Robotrix {
     //% weight=90 blockGap=8
     //% blockSetVariable=led
     //% parts=led
-    //% fixedInstance whenUsed
+    
     export function createLED(address: number): Led {
         let led = new Led();
         led.setAddress(address);
         return led;
     }
+
+    //% fixedInstance whenUsed
+    const led = new Led();
 
 
 }
