@@ -24,6 +24,7 @@ namespace Robotrix {
         //% block.loc.cs="%led|zapni LEDku"
         //% led.defl=led
         //% weight=85 blockGap=8
+        //% parts=led
         turnOnLED() {
             basic.showNumber(this.address)
         }
@@ -35,6 +36,7 @@ namespace Robotrix {
         //% block.loc.cs="%led|vypni LEDku"
         //% led.defl=led
         //% weight=85 blockGap=8
+        //% parts=led
         turnOffLED() {
             basic.showNumber(0)
         }
