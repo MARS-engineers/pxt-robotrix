@@ -1,12 +1,15 @@
 {
-  "visual": {
-    "image": "led.png",
-    "width": 1292,
-    "height": 97,
-    "pinBlocks": [
-      { "pin": "P10", "x": 11, "y": 25 },
-      { "pin": "5V", "x": 11, "y": 49 },
-      { "pin": "GND", "x": 11, "y": 74 }
-    ]
-  }
+  "visual": "led.png",
+  "width": 1292,
+  "height": 97,
+  "pinBlocks": [
+    {
+      "type": "digital",
+      "pins": ["P10"]
+    },
+    {
+      "type": "power",
+      "pins": ["5V", "GND"]
+    }
+  ]
 }
