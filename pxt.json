@@ -7,6 +7,9 @@
         "microphone": "*",
         "servo": "*"
     },
+    "parts": [
+        "led"
+    ],
     "files": [
         "main.blocks",
         "main.ts",
