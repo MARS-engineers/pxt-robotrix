@@ -14,7 +14,9 @@
         "main.blocks",
         "main.ts",
         "README.md",
-        "main.py"
+        "main.py",
+        "sim/led.json",
+        "sim/led.png"
     ],
     "testFiles": [
         "test.ts"
