@@ -63,7 +63,7 @@ namespace Robotrix {
     //% block.loc.cs="Nová LEDka na adrese %address"
     //% weight=90 blockGap=8
     //% blockSetVariable=led
-    //% parts=rled
+    //% parts=led
     export function createLED(address: number): RLed {
         let led = new RLed();
         led.setAddress(address);
