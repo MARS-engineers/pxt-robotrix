@@ -12,7 +12,7 @@ namespace Robotrix {
         //% block.loc.cs="Senzory"
         Sensors = 2
     }
-
+    //% fixedInstances
     export class Led {
         buf: Buffer;
         address: number;
