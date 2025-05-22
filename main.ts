@@ -12,8 +12,7 @@ namespace Robotrix {
         //% block.loc.cs="Senzory"
         Sensors = 2
     }
-    //% fixedInstances
-    export class Led {
+    export class RLed {
         buf: Buffer;
         address: number;
 
@@ -64,15 +63,13 @@ namespace Robotrix {
     //% block.loc.cs="Nová LEDka na adrese %address"
     //% weight=90 blockGap=8
     //% blockSetVariable=led
-    //% parts=servo
-    export function createLED(address: number): Led {
-        let led = new Led();
+    //% parts=rled
+    export function createLED(address: number): RLed {
+        let led = new RLed();
         led.setAddress(address);
         return led;
     }
 
-    //% fixedInstance whenUsed
-    const led = new Led();
 
 
 }
