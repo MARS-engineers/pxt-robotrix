@@ -15,33 +15,27 @@ namespace Robotrix {
 
 
     export enum directions {
-        STOP,
-        FORWARD,
-        BACKWARD,
-        LEFT_SLIDE,
-        RIGHT_SLIDE,
-        ROTATE_CLOCKWISE,
-        ROTATE_COUNTER_CLOCKWISE,
-        TURN_LEFT_F,
-        TURN_RIGHT_F,
-        TURN_LEFT_B,
-        TURN_RIGHT_B,
-        ROT_POINT_LEFT_F,
-        ROT_POINT_RIGHT_F,
-        ROT_POINT_LEFT_B,
-        ROT_POINT_RIGHT_B,
-        SLIDE_DIAG_LEFT_F,
-        SLIDE_DIAG_RIGHT_F,
-        SLIDE_DIAG_LEFT_B,
-        SLIDE_DIAG_RIGHT_B,
+        STOP="00",
+        FORWARD="01",
+        BACKWARD="02",
+        LEFT_SLIDE="03",
+        RIGHT_SLIDE="04",
+        ROTATE_CLOCKWISE="05",
+        ROTATE_COUNTER_CLOCKWISE="06",
+        TURN_LEFT_F="07",
+        TURN_RIGHT_F="08",
+        TURN_LEFT_B="09",
+        TURN_RIGHT_B="0A",
+        ROT_POINT_LEFT_F="0B",
+        ROT_POINT_RIGHT_F="0C",
+        ROT_POINT_LEFT_B="0D",
+        ROT_POINT_RIGHT_B="0E",
+        SLIDE_DIAG_LEFT_F="0F",
+        SLIDE_DIAG_RIGHT_F="10",
+        SLIDE_DIAG_LEFT_B="11",
+        SLIDE_DIAG_RIGHT_B="12",
     };
     /*  Bloky   */
-
-    //% blockId=device_show_number
-    //% block="show|number|test $v"
-    export function showNumber(v: number, interval: number = 150): void {
-
-    }
 
     //% blockId=robotrix_expander_enable_motors
     //% block="enable|motors"
@@ -59,17 +53,7 @@ namespace Robotrix {
     //% blockId=robotrix_expander_move
     //% block="move|in|direction $d at|speed $speed"
     export function carMoveSimple(d: directions, speed: string = "A0"): void {
-        let a = "00";
-        switch (d) {
-            case directions.STOP:
-                a = "00";
-                break;
-            case directions.FORWARD:
-                a = "01";
-                break;
-        }
-        sendDataToExpander("0x20" + a + speed + "00");
-
+        sendDataToExpander("0x20" + d + speed + "00");
     }
 
     // Functions
@@ -103,9 +87,6 @@ namespace Robotrix {
 
 
     /* OLD  */
-
-
-
     export class RLed {
         buf: Buffer;
         address: number;
