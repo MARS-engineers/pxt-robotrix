@@ -14,10 +14,96 @@ namespace Robotrix {
     }
 
 
-//% blockId=device_show_number
-//% block="show|number|test $v"
-export function showNumber(v: number, interval: number = 150): void
-{ }
+    export enum directions {
+        STOP,
+        FORWARD,
+        BACKWARD,
+        LEFT_SLIDE,
+        RIGHT_SLIDE,
+        ROTATE_CLOCKWISE,
+        ROTATE_COUNTER_CLOCKWISE,
+        TURN_LEFT_F,
+        TURN_RIGHT_F,
+        TURN_LEFT_B,
+        TURN_RIGHT_B,
+        ROT_POINT_LEFT_F,
+        ROT_POINT_RIGHT_F,
+        ROT_POINT_LEFT_B,
+        ROT_POINT_RIGHT_B,
+        SLIDE_DIAG_LEFT_F,
+        SLIDE_DIAG_RIGHT_F,
+        SLIDE_DIAG_LEFT_B,
+        SLIDE_DIAG_RIGHT_B,
+    };
+    /*  Bloky   */
+
+    //% blockId=device_show_number
+    //% block="show|number|test $v"
+    export function showNumber(v: number, interval: number = 150): void {
+
+    }
+
+    //% blockId=robotrix_expander_enable_motors
+    //% block="enable|motors"
+    export function enableMotors(): void {
+        sendDataToExpander("0x10010000");
+    }
+
+    //% blockId=robotrix_expander_disable_motors
+    //% block="disable|motors"
+    export function disableMotors(): void {
+        sendDataToExpander("0x10000000");
+    }
+
+
+    //% blockId=robotrix_expander_move
+    //% block="move|in|direction $d at|speed $speed"
+    export function carMoveSimple(d: directions, speed: number = 150): void {
+        let a = 0x00;
+        switch (d) {
+            case directions.STOP:
+                a = 0x00;
+                break;
+            case directions.FORWARD:
+                a = 0x01;
+                break;
+        }
+        sendDataToExpander("0x20" + a + speed + "0x00");
+
+    }
+
+    // Functions
+    export function stringToInt(input: string): number {
+        return round2Zero(parseInt(input));
+    }
+
+    export function round2Zero(input: number): number {
+        return Math.trunc(input);
+    }
+
+    export function sendDataToExpander(input: string) {
+        pins.i2cWriteNumber(
+            85,
+            stringToInt(input),
+            NumberFormat.UInt32BE,
+            false
+        )
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* OLD  */
+
 
 
     export class RLed {
