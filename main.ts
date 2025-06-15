@@ -12,9 +12,14 @@ namespace Robotrix {
         //% block.loc.cs="Senzory"
         Sensors = 2
     }
-    //% block
-export function showNumberTest(v: number, interval: number = 150): void
+
+
+//% blockId=device_show_number
+//% block="show|number $v"
+export function showNumber(v: number, interval: number = 150): void
 { }
+
+
     export class RLed {
         buf: Buffer;
         address: number;
