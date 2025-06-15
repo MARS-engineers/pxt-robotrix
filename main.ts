@@ -59,16 +59,16 @@ namespace Robotrix {
     //% blockId=robotrix_expander_move
     //% block="move|in|direction $d at|speed $speed"
     export function carMoveSimple(d: directions, speed: string = "A0"): void {
-        let a = "0x00";
+        let a = "00";
         switch (d) {
             case directions.STOP:
-                a = "0x00";
+                a = "00";
                 break;
             case directions.FORWARD:
-                a = "0x01";
+                a = "01";
                 break;
         }
-        sendDataToExpander("0x20" + a + speed + "0x00");
+        sendDataToExpander("0x20" + a + speed + "00");
 
     }
 
