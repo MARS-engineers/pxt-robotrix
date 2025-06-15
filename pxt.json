@@ -7,10 +7,6 @@
         "microphone": "*",
         "servo": "*"
     },
-    "parts": [
-        "led",
-        "servo"
-    ],
     "files": [
         "main.blocks",
         "main.ts",
@@ -29,5 +25,9 @@
     "supportedTargets": [
         "microbit"
     ],
-    "preferredEditor": "tsprj"
+    "preferredEditor": "tsprj",
+    "parts": [
+        "led",
+        "servo"
+    ]
 }
