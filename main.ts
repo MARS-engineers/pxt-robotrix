@@ -1,4 +1,4 @@
-//% color=190 weight=100 icon="\uf1b9" block="RoboTriX Rover 1"
+//% color=190 weight=100 icon="\uf1b9" block="RoboTriX Rover 1 matej2005 test"
 namespace Robotrix {
 
     export enum ModuleType {
