@@ -15,25 +15,25 @@ namespace Robotrix {
 
 
     export enum directions {
-        STOP="00",
-        FORWARD="01",
-        BACKWARD="02",
-        LEFT_SLIDE="03",
-        RIGHT_SLIDE="04",
-        ROTATE_CLOCKWISE="05",
-        ROTATE_COUNTER_CLOCKWISE="06",
-        TURN_LEFT_F="07",
-        TURN_RIGHT_F="08",
-        TURN_LEFT_B="09",
-        TURN_RIGHT_B="0A",
-        ROT_POINT_LEFT_F="0B",
-        ROT_POINT_RIGHT_F="0C",
-        ROT_POINT_LEFT_B="0D",
-        ROT_POINT_RIGHT_B="0E",
-        SLIDE_DIAG_LEFT_F="0F",
-        SLIDE_DIAG_RIGHT_F="10",
-        SLIDE_DIAG_LEFT_B="11",
-        SLIDE_DIAG_RIGHT_B="12",
+        STOP = "00",
+        FORWARD = "01",
+        BACKWARD = "02",
+        LEFT_SLIDE = "03",
+        RIGHT_SLIDE = "04",
+        ROTATE_CLOCKWISE = "05",
+        ROTATE_COUNTER_CLOCKWISE = "06",
+        TURN_LEFT_F = "07",
+        TURN_RIGHT_F = "08",
+        TURN_LEFT_B = "09",
+        TURN_RIGHT_B = "0A",
+        ROT_POINT_LEFT_F = "0B",
+        ROT_POINT_RIGHT_F = "0C",
+        ROT_POINT_LEFT_B = "0D",
+        ROT_POINT_RIGHT_B = "0E",
+        SLIDE_DIAG_LEFT_F = "0F",
+        SLIDE_DIAG_RIGHT_F = "10",
+        SLIDE_DIAG_LEFT_B = "11",
+        SLIDE_DIAG_RIGHT_B = "12",
     };
     /*  Bloky   */
 
@@ -53,7 +53,7 @@ namespace Robotrix {
     //% blockId=robotrix_expander_move
     //% block="move|in|direction $d at|speed $speed"
     export function carMoveSimple(d: directions, speed: string = "A0"): void {
-        sendDataToExpander("0x20" + d + speed + "00");
+        sendDataToExpander("0x" + "20" + d + speed + "00");
     }
 
     // Functions
