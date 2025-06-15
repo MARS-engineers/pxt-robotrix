@@ -13,7 +13,7 @@ namespace Robotrix {
         Sensors = 2
     }
     //% block
-export function showNumber(v: number, interval: number = 150): void
+export function showNumberTest(v: number, interval: number = 150): void
 { }
     export class RLed {
         buf: Buffer;
