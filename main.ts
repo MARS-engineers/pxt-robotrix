@@ -56,9 +56,10 @@ namespace Robotrix {
         let a = d as string;
         if (a.length < 2) {
             a = "0" + a;
-        } sendDataToExpander("0x" + "20" + a + speed + "00");
+        }
+        sendDataToExpander("0x" + "20" + a + speed + "00");
     }
-
+    
     // Functions
     export function stringToInt(input: string): number {
         return round2Zero(parseInt(input));
