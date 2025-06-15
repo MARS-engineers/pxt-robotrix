@@ -53,7 +53,7 @@ namespace Robotrix {
     //% blockId=robotrix_expander_move
     //% block="move|in|direction $d at|speed $speed"
     export function carMoveSimple(d: directions, speed: string = "A0"): void {  // TO-DO change speed from hex value to dec int 0-255/0-100%
-        let a = d.padStart(2, "0");
+        let a;//= d.padStart(2, "0");
         sendDataToExpander("0x" + "20" +  a + speed + "00");
     }
 
