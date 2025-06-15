@@ -15,7 +15,7 @@ namespace Robotrix {
 
 
 //% blockId=device_show_number
-//% block="show|number $v"
+//% block="show|number|test $v"
 export function showNumber(v: number, interval: number = 150): void
 { }
 
