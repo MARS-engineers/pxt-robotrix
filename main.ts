@@ -1,4 +1,4 @@
-//% color=190 weight=100 icon="\uf1b9" block="RoboTriX Rover 1"
+//% color=190 weight=100 icon="\uf1b9" block="RoboTriX Rover 1 matej2005 test"
 namespace Robotrix {
 
     export enum ModuleType {
@@ -36,21 +36,20 @@ namespace Robotrix {
         SLIDE_DIAG_RIGHT_B = "12",
     };
     /*  Bloky   */
-    //% subcategory="Motion"
+
     //% blockId=robotrix_expander_enable_motors
     //% block="enable|motors"
     export function enableMotors(): void {
         sendDataToExpander("0x10010000");
     }
 
-    //% subcategory="Motion"
     //% blockId=robotrix_expander_disable_motors
     //% block="disable|motors"
     export function disableMotors(): void {
         sendDataToExpander("0x10000000");
     }
 
-    //% subcategory="Motion"
+
     //% blockId=robotrix_expander_move
     //% block="move|in|direction $d at|speed $speed"
     export function carMoveSimple(d: directions, speed: string = "A0"): void {  // TO-DO change speed from hex value to dec int 0-255/0-100%
@@ -60,7 +59,7 @@ namespace Robotrix {
         }
         sendDataToExpander("0x" + "20" + a + speed + "00");
     }
-
+    
     // Functions
     export function stringToInt(input: string): number {
         return round2Zero(parseInt(input));
@@ -96,7 +95,6 @@ namespace Robotrix {
         /**
          * Turning on LED
          */
-        //% subcategory="Tests"
         //% blockId="robotrix_led_on" block="%led|turn on the LED"
         //% block.loc.cs="%led|zapni LEDku"
         //% led.defl=led
@@ -109,7 +107,6 @@ namespace Robotrix {
         /**
          * Turning off LED
          */
-        //% subcategory="Tests"
         //% blockId="robotrix_led_off" block="%led|turn off the led"
         //% block.loc.cs="%led|vypni LEDku"
         //% led.defl=led
@@ -128,7 +125,6 @@ namespace Robotrix {
      * Otestuje vybrané moduly
      * @param module typ modulu
      */
-    //% subcategory="Tests"
     //% block="test modules $modules"
     //% block.loc.cs="otestovat moduly $modules"
     export function test(modules: ModuleType): void {
@@ -139,7 +135,6 @@ namespace Robotrix {
      * Create a new LED I2C connection / instance
      * @param address I2C address
      */
-    //% subcategory="Tests"
     //% blockId="robotrix_create_led" block="New LED on address %address"
     //% block.loc.cs="Nová LEDka na adrese %address"
     //% weight=90 blockGap=8
