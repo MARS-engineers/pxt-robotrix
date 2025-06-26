@@ -7,7 +7,7 @@ namespace Robotrix {
         INCH = 148, // Duration of echo round-trip in Microseconds (uS) for two inches, 343 m/s at sea level and 20°C
     }
 
-    const SONAR_ECHO_PIN = DigitalPin.P14;  // Change to DigitalPin.P0 when on PCB
+    const SONAR_ECHO_PIN = DigitalPin.P0;
     const SONARS_N = 4;
     const MICROBIT_MAKERBIT_ULTRASONIC_OBJECT_DETECTED_ID = 798;
     const MAX_ULTRASONIC_TRAVEL_TIME = 300 * DistanceUnit.CM;
@@ -47,13 +47,23 @@ namespace Robotrix {
         SLIDE_DIAG_RIGHT_B = "12",
     };
 
+    export enum directions2 {
+        STRAIGHT = "00",
+        SLIDE = "01",
+        TURN_AROUND = "02",
+        TURN_REAR = "03",
+        TURN_FRONT = "04",
+        DIAG_LEFT = "05",
+        DIAG_RIGHT = "06"
+    };
+
     export enum SonarDirections {
         FRONT = 0,
         FRONT_LEFT = 1,
-        FRONT_RIGHT = 2,
-        LEFT = 3,
-        RIGHT = 4,
-        BACK = 5
+        FRONT_RIGHT = 3,
+        LEFT = 4,
+        RIGHT = 5,
+        BACK = 6
     }
 
 
@@ -90,7 +100,86 @@ namespace Robotrix {
         sendDataToExpander("0x" + "20" + a + speed + "00");
     }
 
+    //% subcategory="Movement"
+    //% blockId=robotrix_expander_move2
+    //% block="move2|in|direction $d at|speed $speedPercent"
+    //% speedPercent.min=-100 speedPercent.max=100
+    export function carMoveSimple2(d: directions2, speedPercent: number = 0): void {
+        let a = d as string;
+        if (a.length < 2) a = "0" + a;
+
+        //let s = speed.toString(16);   dont work in makercode
+        let speed = Math.map(speedPercent, -100, 100, -127, 127);
+        let speedHex = intToSignedHex(speed);
+
+        sendDataToExpander("0x" + "21" + d + speedHex + "00");
+    }
+
+    //% subcategory="Movement"
+    //% blockId=robotrix_expander_motor_run
+    //% block="run|motor $mot|at|speed $speed"
+    export function motorRun(mot: number, speed: number): void {
+        let motHex = intToSignedHex(Math.map(speed, -100, 100, -127, 127));
+        pins.i2cWriteNumber(85, stringToInt("0x11" + intToHex(mot) + motHex + "00"), NumberFormat.UInt32BE, false);
+    }
+
+    //% subcategory="Movement"
+    //% blockId=robotrix_expander_motors_run
+    //% block="run|motor1 $m1|motor2 $m2|motor3 $m3| motor4 $m4"
+    export function motorsRun(m1: number, m2: number, m3: number, m4: number): void {
+        let m1Hex = intToSignedHex(Math.map(m1, -100, 100, -127, 127));
+        let m2Hex = intToSignedHex(Math.map(m2, -100, 100, -127, 127));
+        let m3Hex = intToSignedHex(Math.map(m3, -100, 100, -127, 127));
+        let m4Hex = intToSignedHex(Math.map(m4, -100, 100, -127, 127));
+
+        pins.i2cWriteNumber(85, stringToInt("0x12" + m1Hex + m2Hex + m3Hex), NumberFormat.UInt32BE, false);
+
+        //sendDataToExpander("0x" + "12" + m1Hex + m2Hex + m3Hex + m4Hex);
+    }
+
+
+
     // Functions
+    //% subcategory="Test"
+    //% blockId=robotrix_test_hex
+    //% block="test|hex|$input"
+    export function intToSignedHex(input: number): string {
+        let hex = '';
+        const hexChars = '0123456789abcdef';
+
+        // Handle negative numbers
+        if (input < 0) input = 128 + Math.abs(input); // Convert to unsigned 32-bit integer
+
+        while (input > 0) {
+            const remainder = input % 16;
+            hex = hexChars[remainder] + hex;
+            input = Math.floor(input / 16);
+        }
+
+        if (hex.length == 1) { hex = '0' + hex; }
+
+        return hex || '00'; // Return '0' if the number is 0
+    }
+
+    export function intToHex(input: number): string {
+        let hex = '';
+        const hexChars = '0123456789abcdef';
+
+        // Handle negative numbers
+        if (input < 0) return '00';
+
+        while (input > 0) {
+            const remainder = input % 16;
+            hex = hexChars[remainder] + hex;
+            input = Math.floor(input / 16);
+        }
+
+        if (hex.length == 1) { hex = '0' + hex; }
+
+        return hex || '00'; // Return '0' if the number is 0
+    }
+
+
     export function stringToInt(input: string): number {
         return round2Zero(parseInt(input));
     }
@@ -108,11 +197,17 @@ namespace Robotrix {
         )
     }
 
+
+
+
+
+    ////////////////////////////////////////////
+
     /* 
         Insired by https://github.com/arielnh56/OctoSonar 
         Code for sonar modified from https://github.com/1010Technologies/pxt-makerbit-ultrasonic
     */
-    
+
     let _currentSonar = 0;
 
     interface UltrasonicRoundTrip {
