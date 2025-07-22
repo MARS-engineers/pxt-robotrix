@@ -229,7 +229,7 @@ namespace Robotrix {
     //% block.loc.cs="Zapni ultrazvukové senzory"
     //% weight=80
     export function connectUltrasonicDistanceSensor(): void {
-        for (let i = 0; i < 8; i++) {
+        for (let i = 0; i < SONARS_N; i++) {
             ultrasonicState.push({
                 roundTrips: [{ ts: 0, rtt: MAX_ULTRASONIC_TRAVEL_TIME }],
                 medianRoundTrip: MAX_ULTRASONIC_TRAVEL_TIME,
