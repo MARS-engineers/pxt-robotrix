@@ -121,9 +121,6 @@ namespace Robotrix {
 
 
     // Functions
-    //% subcategory="Test"
-    //% blockId=robotrix_test_hex
-    //% block="test|hex|$input"
     export function intToSignedHex(input: number): string {
         let hex = '';
         const hexChars = '0123456789abcdef';
@@ -260,7 +257,6 @@ namespace Robotrix {
     /**
      * Do something when an object is detected the first time within a specified range.
      * @param distance distance to object, eg: 20
-     * @param unit unit of distance, eg: DistanceUnit.CM
      * @param handler body code to run when the event is raised
      */
     //% subcategory="Ultrasonic"
@@ -305,8 +301,8 @@ namespace Robotrix {
      */
     //% subcategory="Ultrasonic"
     //% blockId="robotrix_ultrasonic_distance"
-    //% block.loc.cs="Vzdálenost detekované překažky ve směru | %direction"
-    //% block="ultrasonic %direction distance"
+    //% block.loc.cs="Vzdálenost detekované překažky ve směru | &direction"
+    //% block="ultrasonic $direction distance"
     //% weight=60
     export function getUltrasonicDistance(direction: SonarDirections): number {
         if (!ultrasonicState) {
