@@ -259,9 +259,8 @@ namespace Robotrix {
     //% block.loc.cs="Když detekuješ překážku do vzdálenosti | %distance | ve směru | %direction |"
     //% weight=69
     export function onUltrasonicObjectDetected(
-        direction: SonarDirections,
         distance: number,
-        unit: DistanceUnit,
+        direction: SonarDirections,
         handler: () => void
     ) {
         if (distance <= 0) {
@@ -276,7 +275,7 @@ namespace Robotrix {
             };
         }
 
-        const travelTimeThreshold = Math.imul(distance, unit);
+        const travelTimeThreshold = Math.imul(distance, DistanceUnit.CM,);
 
         ultrasonicState[direction].travelTimeObservers.push(travelTimeThreshold);
 
@@ -299,12 +298,12 @@ namespace Robotrix {
     //% block.loc.cs="Vzdálenost detekované překažky ve směru | %direction"
     //% block="ultrasonic %direction distance"
     //% weight=60
-    export function getUltrasonicDistance(direction: SonarDirections, unit: DistanceUnit): number {
+    export function getUltrasonicDistance(direction: SonarDirections): number {
         if (!ultrasonicState) {
             return -1;
         }
         basic.pause(0); // yield to allow background processing when called in a tight loop
-        return Math.idiv(ultrasonicState[direction].medianRoundTrip, unit);
+        return Math.idiv(ultrasonicState[direction].medianRoundTrip, DistanceUnit.CM);
     }
 
     /**
@@ -317,14 +316,14 @@ namespace Robotrix {
     //% blockId="robotrix_ultrasonic_distance_all"
     //% block="distance measured by sonars"
     //% weight=60
-    export function getUltrasonicDistanceAll(unit: DistanceUnit): string {
+    export function getUltrasonicDistanceAll(): string {
         if (!ultrasonicState) {
             return "-1";
         }
         basic.pause(0); // yield to allow background processing when called in a tight loop
         let a = "";
         for (let i = 0; i < SONARS_N; i++) {
-            a += Math.idiv(ultrasonicState[i].medianRoundTrip, unit);
+            a += Math.idiv(ultrasonicState[i].medianRoundTrip, DistanceUnit.CM);
             a += ", ";
         }
         return a;
@@ -344,13 +343,12 @@ namespace Robotrix {
     export function isUltrasonicDistanceLessThan(
         direction: SonarDirections,
         distance: number,
-        unit: DistanceUnit
     ): boolean {
         if (!ultrasonicState) {
             return false;
         }
         basic.pause(0); // yield to allow background processing when called in a tight loop
-        return Math.idiv(ultrasonicState[direction].medianRoundTrip, unit) < distance;
+        return Math.idiv(ultrasonicState[direction].medianRoundTrip, DistanceUnit.CM) < distance;
     }
 
     function triggerPulse(sonar: number) {
