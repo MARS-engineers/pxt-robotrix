@@ -51,14 +51,6 @@ namespace Robotrix {
         DIAG_RIGHT = "06"
     };
 
-    export enum SonarDirections {
-        FRONT = 0,
-        FRONT_LEFT = 1,
-        FRONT_RIGHT = 3,
-        LEFT = 4,
-        RIGHT = 5,
-        BACK = 6
-    }
 
 
 
@@ -94,16 +86,14 @@ namespace Robotrix {
     //% blockId=robotrix_expander_move2
     //% block="move in direction | $d | at speed $speedPercent %"
     //% speedPercent.min=-100 speedPercent.max=100
-    export function carMoveSimple2(d: directions2, speedPercent: number = 0): void {
-        let a = d as string;
-        if (a.length < 2) a = "0" + a;
-
     //% block.loc.cs="Jeď ve směru | $d |  rychlostí | $speedPercent | % |"
+    export function carMoveSimple(d: directions2, speedPercent: number = 0): void {
         //let s = speed.toString(16);   dont work in makercode
         let speed = Math.map(speedPercent, -100, 100, -127, 127);
         let speedHex = intToSignedHex(speed);
 
-        sendDataToExpander("0x" + "21" + d + speedHex + "00");
+        sendDataToExpander("0x" + "210" + d + speedHex + "00");
+
     }
 
     //% subcategory="Test"
@@ -198,6 +188,26 @@ namespace Robotrix {
         Inspired by https://github.com/arielnh56/OctoSonar 
         Code for sonar modified from https://github.com/1010Technologies/pxt-makerbit-ultrasonic
     */
+    export enum SonarDirections {
+        //% block="Front"
+        //% block.loc.cs="Předek"
+        FRONT = 0,
+        //% block="Left front"
+        //% block.loc.cs="Levá vepředu"
+        FRONT_LEFT = 1,
+        //% block="Right front"
+        //% block.loc.cs="Prvá vepředu"
+        FRONT_RIGHT = 2,
+        //% block="Left side"
+        //% block.loc.cs="Levý bok"
+        LEFT = 3,
+        //% block="Right side"
+        //% block.loc.cs="Pravý bok"
+        RIGHT = 4,
+        //% block="Back side"
+        //% block.loc.cs="Zadek"
+        BACK = 5
+    }
 
     let _currentSonar = 0;
 
