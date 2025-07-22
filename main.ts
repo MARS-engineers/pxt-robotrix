@@ -47,13 +47,28 @@ namespace Robotrix {
         SLIDE_DIAG_RIGHT_B = "12",
     };
 
+
     export enum directions2 {
+        //% block="Straight"
+        //% block.loc.cs="Rovně"
         STRAIGHT = "00",
+        //% block="Slide"
+        //% block.loc.cs="Doboku"
         SLIDE = "01",
+        //% block="Turn around"
+        //% block.loc.cs="Otáčej se na místě"
         TURN_AROUND = "02",
+        //% block="Turn at rear"
+        //% block.loc.cs="Otáčej se zadkem"
         TURN_REAR = "03",
+        //% block="Turn at front"
+        //% block.loc.cs="Otáčej se předkem"
         TURN_FRONT = "04",
+        //% block="Diagonal Left"
+        //% block.loc.cs="Diagonálně vlevo"
         DIAG_LEFT = "05",
+        //% block="Diagonal right"
+        //% block.loc.cs="Diagonálně vpravo"
         DIAG_RIGHT = "06"
     };
 
@@ -67,10 +82,14 @@ namespace Robotrix {
     }
 
 
+
     /*  Bloky   */
+
+
     //% subcategory="Movement"
     //% blockId=robotrix_expander_enable_motors
     //% block="enable|motors"
+    //% block.loc.cs="Zapni|motory"
     export function enableMotors(): void {
         sendDataToExpander("0x10010000");
     }
@@ -78,6 +97,7 @@ namespace Robotrix {
     //% subcategory="Movement"
     //% blockId=robotrix_expander_disable_motors
     //% block="disable|motors"
+    //% block.loc.cs="Vypni|Motory"
     export function disableMotors(): void {
         sendDataToExpander("0x10000000");
     }
@@ -85,6 +105,7 @@ namespace Robotrix {
     //% subcategory="Movement"
     //% blockId=robotrix_expander_stop
     //% block="stop"
+    //% block.loc.cs="Zastav|na|místě"
     export function stop(): void {
         sendDataToExpander("0x20000000");
     }
@@ -102,12 +123,13 @@ namespace Robotrix {
 
     //% subcategory="Movement"
     //% blockId=robotrix_expander_move2
-    //% block="move2|in|direction $d at|speed $speedPercent"
+    //% block="move in direction | $d | at speed $speedPercent %"
     //% speedPercent.min=-100 speedPercent.max=100
     export function carMoveSimple2(d: directions2, speedPercent: number = 0): void {
         let a = d as string;
         if (a.length < 2) a = "0" + a;
 
+    //% block.loc.cs="Jeď ve směru | $d |  rychlostí | $speedPercent | % |"
         //let s = speed.toString(16);   dont work in makercode
         let speed = Math.map(speedPercent, -100, 100, -127, 127);
         let speedHex = intToSignedHex(speed);
@@ -115,15 +137,15 @@ namespace Robotrix {
         sendDataToExpander("0x" + "21" + d + speedHex + "00");
     }
 
-    //% subcategory="Movement"
+    //% subcategory="Test"
     //% blockId=robotrix_expander_motor_run
-    //% block="run|motor $mot|at|speed $speed"
+    //% block="run motor | $mot | at speed $speed"
     export function motorRun(mot: number, speed: number): void {
         let motHex = intToSignedHex(Math.map(speed, -100, 100, -127, 127));
         pins.i2cWriteNumber(85, stringToInt("0x11" + intToHex(mot) + motHex + "00"), NumberFormat.UInt32BE, false);
     }
 
-    //% subcategory="Movement"
+    //% subcategory="Test"
     //% blockId=robotrix_expander_motors_run
     //% block="run|motor1 $m1|motor2 $m2|motor3 $m3| motor4 $m4"
     export function motorsRun(m1: number, m2: number, m3: number, m4: number): void {
@@ -204,7 +226,7 @@ namespace Robotrix {
     ////////////////////////////////////////////
 
     /* 
-        Insired by https://github.com/arielnh56/OctoSonar 
+        Inspired by https://github.com/arielnh56/OctoSonar 
         Code for sonar modified from https://github.com/1010Technologies/pxt-makerbit-ultrasonic
     */
 
@@ -228,6 +250,7 @@ namespace Robotrix {
     //% subcategory="Ultrasonic"
     //% blockId="robotrix_ultrasonic_connect"
     //% block="connect ultrasonic distance sensor"
+    //% block.loc.cs="Zapni ultrazvukové senzory"
     //% weight=80
     export function connectUltrasonicDistanceSensor(): void {
         for (let i = 0; i < 8; i++) {
@@ -263,7 +286,8 @@ namespace Robotrix {
      */
     //% subcategory="Ultrasonic"
     //% blockId=robotrix_ultrasonic_on_object_detected
-    //% block="on object detected once within | %distance | %unit at direction %direction"
+    //% block="On object detected once within | %distance | at direction %direction"
+    //% block.loc.cs="Když detekuješ překážku do vzdálenosti | %distance | ve směru | %direction |"
     //% weight=69
     export function onUltrasonicObjectDetected(
         direction: SonarDirections,
@@ -300,11 +324,11 @@ namespace Robotrix {
      * Returns the distance to an object in a range from 1 to 300 centimeters or up to 118 inch.
      * The maximum value is returned to indicate when no object was detected.
      * -1 is returned when the device is not connected.
-     * @param unit unit of distance, eg: DistanceUnit.CM
      */
     //% subcategory="Ultrasonic"
     //% blockId="robotrix_ultrasonic_distance"
-    //% block="ultrasonic %direction distance in %unit"
+    //% block.loc.cs="Vzdálenost detekované překažky ve směru | %direction"
+    //% block="ultrasonic %direction distance"
     //% weight=60
     export function getUltrasonicDistance(direction: SonarDirections, unit: DistanceUnit): number {
         if (!ultrasonicState) {
@@ -318,12 +342,11 @@ namespace Robotrix {
 * Returns the distance to an object in a range from 1 to 300 centimeters or up to 118 inch.
 * The maximum value is returned to indicate when no object was detected.
 * -1 is returned when the device is not connected.
-* @param unit unit of distance, eg: DistanceUnit.CM
 * @param sonar what sensor is used for measuring distance
 */
     //% subcategory="Ultrasonic"
     //% blockId="robotrix_ultrasonic_distance_all"
-    //% block="distance measured by sonars in %unit"
+    //% block="distance measured by sonars"
     //% weight=60
     export function getUltrasonicDistanceAll(unit: DistanceUnit): string {
         if (!ultrasonicState) {
@@ -343,11 +366,11 @@ namespace Robotrix {
      * Returns `true` if an object is within the specified distance. `false` otherwise.
      *
      * @param distance distance to object, eg: 20
-     * @param unit unit of distance, eg: DistanceUnit.CM
      */
     //% subcategory="Ultrasonic"
     //% blockId="robotrix_ultrasonic_less_than"
-    //% block="ultrasonic %direction distance is less than | %distance | %unit"
+    //% block="ultrasonic %direction distance is less than | %distance"
+    //% block.loc.cs="Je překážka detekována ve směru | %direction | do vzdálenosti | %distance |?|"
     //% weight=50
     export function isUltrasonicDistanceLessThan(
         direction: SonarDirections,
