@@ -56,7 +56,6 @@ namespace Robotrix {
     const MICROBIT_MAKERBIT_ULTRASONIC_OBJECT_DETECTED_ID = 798;
     const MAX_ULTRASONIC_TRAVEL_TIME = 300 * DistanceUnit.CM;
 
-    const OBJECT_DETECTED_DISTANCE = 20
 
     let ULTRASONIC_MEASUREMENTS = 3;
     let _currentSonar = 0;
@@ -244,35 +243,7 @@ namespace Robotrix {
     }
 
 
-    /**
-     * 
-     * @param direction where we want to detect object
-     * @returns `true` if object is detected in OBJECT_DETECTED_DISTANCE range. `false` otherwise
-     */
-    //% subcategory="Ultrasonic"
-    //% blockId="robotrix_ultrasonic_detected"
-    //% block="object is detected in $direction"
-    //% block.loc.cs="překážka je detekována ve směru | $direction"
-    //% weight=50
-    export function isObjectDetected(direction: SonarDirections): boolean {
-        if (Math.idiv(ultrasonicState[direction].medianRoundTrip, DistanceUnit.CM) < OBJECT_DETECTED_DISTANCE) return true;
-        else return false;
-    }
 
-    /**
-     * 
-     * @param direction where we want to detect object
-     * @returns `true` if object is not detected in OBJECT_DETECTED_DISTANCE range. `false` otherwise
-     */
-    //% subcategory="Ultrasonic"
-    //% blockId="robotrix_ultrasonic_not_detected"
-    //% block="object is not detected in $direction"
-    //% block.loc.cs="není detekována překážka ve směru &direction"
-    //% weight=50
-    export function isNotObjectDetected(direction: SonarDirections): boolean {
-        if (Math.idiv(ultrasonicState[direction].medianRoundTrip, DistanceUnit.CM) < OBJECT_DETECTED_DISTANCE) return false;
-        else return true;
-    }
 
 
 

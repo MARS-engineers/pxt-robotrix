@@ -1,5 +1,52 @@
 //% color=190 weight=100 icon="\uf1b9" block="RoboTriX Rover 1"
 namespace Robotrix {
+    const OBJECT_DETECTED_DISTANCE = 20
+
+    // Basic functions 
+
+    /**
+     * Inicialises all functions of car. 
+     */
+    //% blockId="robotrix_turn_on_car"
+    //% block="Turn on car"
+    //% block.loc.cs="Nastartuj auto"
+    //% weight=1000
+    export function TurnOnCar() {
+        enableMotors();
+        connectUltrasonicDistanceSensor();
+    }
+
+
+
+    
+    /**
+     * 
+     * @param direction where we want to detect object
+     * @returns `true` if object is detected in OBJECT_DETECTED_DISTANCE range. `false` otherwise
+     */
+    //% blockId="robotrix_ultrasonic_detected"
+    //% block="object is detected in $direction"
+    //% block.loc.cs="překážka je detekována ve směru | $direction"
+    //% weight=50
+    export function isObjectDetected(direction: SonarDirections): boolean {
+        if (getUltrasonicDistance(direction) < OBJECT_DETECTED_DISTANCE) return true;
+        else return false;
+    }
+
+    /**
+     * 
+     * @param direction where we want to detect object
+     * @returns `true` if object is not detected in OBJECT_DETECTED_DISTANCE range. `false` otherwise
+     */
+    //% blockId="robotrix_ultrasonic_not_detected"
+    //% block="object is not detected in $direction"
+    //% block.loc.cs="není detekována překážka ve směru &direction"
+    //% weight=51
+    export function isNotObjectDetected(direction: SonarDirections): boolean {
+        if (getUltrasonicDistance(direction) < OBJECT_DETECTED_DISTANCE) return false;
+        else return true;
+    }
+
 
     /* OLD  */
     export enum directions_old {
@@ -37,7 +84,7 @@ namespace Robotrix {
 
 
 
-    
+
     export enum ModuleType {
         //% block="All"
         //% block.loc.cs="Všechny"
