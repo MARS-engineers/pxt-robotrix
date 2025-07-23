@@ -10,6 +10,8 @@
     "files": [
         "main.blocks",
         "main.ts",
+        "sonar.ts",
+        "motors.ts",
         "README.md",
         "main.py",
         "sim/rled.json",
