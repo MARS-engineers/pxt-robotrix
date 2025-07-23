@@ -126,10 +126,10 @@ namespace Robotrix {
                 ULTRASONIC_MEASUREMENTS = 4;
                 break;
             case SonarModes.FAST:
-                ULTRASONIC_MEASUREMENTS = 2;
+                ULTRASONIC_MEASUREMENTS = 3;
                 break;
             case SonarModes.ULTRA_FAST:
-                ULTRASONIC_MEASUREMENTS = 1;
+                ULTRASONIC_MEASUREMENTS = 2;
                 break;
             case SonarModes.PRECISION:
                 ULTRASONIC_MEASUREMENTS = 6;
@@ -147,8 +147,8 @@ namespace Robotrix {
      */
     //% subcategory="Ultrasonic"
     //% blockId=robotrix_ultrasonic_on_object_detected
-    //% block="On object detected once within | $distance | at direction $direction"
-    //% block.loc.cs="Když detekuješ překážku do vzdálenosti | $distance | ve směru | $direction |"
+    //% block="object detected within | $distance | at direction $direction"
+    //% block.loc.cs="překážka je detekována do vzdálenosti | $distance | ve směru | $direction |"
     //% weight=69
     export function onUltrasonicObjectDetected(
         distance: number,
@@ -209,9 +209,8 @@ namespace Robotrix {
     //% block="distance measured by sonars"
     //% weight=60
     export function getUltrasonicDistanceAll(): string {
-        if (!ultrasonicState) {
-            return "-1";
-        }
+        if (!ultrasonicState) return "-1";
+
         basic.pause(0); // yield to allow background processing when called in a tight loop
         let a = "";
         for (let i = 0; i < SONARS_N; i++) {
@@ -230,7 +229,7 @@ namespace Robotrix {
     //% subcategory="Ultrasonic"
     //% blockId="robotrix_ultrasonic_less_than"
     //% block="ultrasonic $direction distance is less than | $distance"
-    //% block.loc.cs="Je překážka detekována ve směru | $direction | do vzdálenosti | $distance |?|"
+    //% block.loc.cs="překážka není detekována ve směru | $direction"
     //% weight=50
     export function isUltrasonicDistanceLessThan(
         direction: SonarDirections,
@@ -247,7 +246,7 @@ namespace Robotrix {
     /**
      * 
      * @param direction where we want to detect object
-     * @returns true if object is detected in OBJECT_DETECTED_DISTANCE range
+     * @returns `true` if object is detected in OBJECT_DETECTED_DISTANCE range. `false` otherwise
      */
     //% subcategory="Ultrasonic"
     //% blockId="robotrix_ultrasonic_detected"
@@ -262,7 +261,7 @@ namespace Robotrix {
     /**
      * 
      * @param direction where we want to detect object
-     * @returns true if object is not detected in OBJECT_DETECTED_DISTANCE range
+     * @returns `true` if object is not detected in OBJECT_DETECTED_DISTANCE range. `false` otherwise
      */
     //% subcategory="Ultrasonic"
     //% blockId="robotrix_ultrasonic_not_detected"
