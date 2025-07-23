@@ -1,6 +1,7 @@
 //% color=190 weight=100 icon="\uf1b9" block="RoboTriX Rover 1"
 namespace Robotrix {
     const OBJECT_DETECTED_DISTANCE = 20
+    const DEFAULT_SPEED = 50;
 
     // Basic functions 
 
@@ -47,7 +48,21 @@ namespace Robotrix {
         else return true;
     }
 
+    /**
+     * 
+     * @param direction where we want to detect object
+     * @returns `true` if object is not detected in OBJECT_DETECTED_DISTANCE range. `false` otherwise
+     */
+    //% blockId="robotrix_ultrasonic_not_detected"
+    //% block="start moving in $direction"
+    //% block.loc.cs="Začni se pohybovat ve směru $direction"
+    //% weight=60
+    export function startMoving(direction: directions2) {
+        carMoveSimple(direction, DEFAULT_SPEED);
+    }
 
+
+    
     /* OLD  */
     export enum directions_old {
         STOP = "00",
@@ -74,8 +89,8 @@ namespace Robotrix {
     //% subcategory="Test"
     //% blockId=robotrix_expander_move_old
     //% block="old|move|in|direction $d at|speed $speed"
-    export function carMoveSimpleOld(d: directions_old, speed: string = "A0"): void {  // TO-DO change speed from hex value to dec int 0-255/0-100%
-        let a = d as string;
+    export function carMoveSimpleOld(direction: directions_old, speed: string = "A0"): void {  // TO-DO change speed from hex value to dec int 0-255/0-100%
+        let a = direction as string;
         if (a.length < 2) {
             a = "0" + a;
         }
