@@ -1,8 +1,8 @@
 namespace Robotrix {
     /* 
-        Inspired by https://github.com/arielnh56/OctoSonar 
-        Code for sonar modified from https://github.com/1010Technologies/pxt-makerbit-ultrasonic
-    */
+     *   Inspired by https://github.com/arielnh56/OctoSonar 
+     *   Code for sonar modified from https://github.com/1010Technologies/pxt-makerbit-ultrasonic
+     */
 
     export enum DistanceUnit {
         //% block="cm"
@@ -117,8 +117,8 @@ namespace Robotrix {
      */
     //% subcategory="Test"
     //% blockId=robotrix_ultrasonic_set_mode
-    //% block="Set ultrasonic mode to | $mode"
-    //% block.loc.cs="Nastav mód ultrazvukových senzorů na &mode"
+    //% block="Set ultrasonic mode to $mode"
+    //% block.loc.cs="Nastav mód ultrazvukových senzorů na $mode"
     export function setUltrasonicSensorsMode(mode: SonarModes) {
         SonarMode = mode;
         switch (mode) {
@@ -187,8 +187,8 @@ namespace Robotrix {
      */
     //% subcategory="Ultrasonic"
     //% blockId="robotrix_ultrasonic_distance"
-    //% block.loc.cs="Vzdálenost detekované překažky ve směru | &direction"
-    //% block="ultrasonic $direction distance"
+    //% block.loc.cs="vzdálenost detekované překažky ve směru $direction"
+    //% block="distance to the detected object in $direction"
     //% weight=60
     export function getUltrasonicDistance(direction: SonarDirections): number {
         if (!ultrasonicState) {
@@ -207,6 +207,7 @@ namespace Robotrix {
     //% subcategory="Ultrasonic"
     //% blockId="robotrix_ultrasonic_distance_all"
     //% block="distance measured by sonars"
+    //% block.loc.cs="vzdálenost měřená všemi senzory"
     //% weight=60
     export function getUltrasonicDistanceAll(): string {
         if (!ultrasonicState) return "-1";
