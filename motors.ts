@@ -23,7 +23,6 @@ namespace Robotrix {
         DIAG_RIGHT = "06"
     };
 
-
     /**
      *  Enable motors function.
      */
@@ -62,9 +61,9 @@ namespace Robotrix {
      */
     //% subcategory="Movement"
     //% blockId=robotrix_expander_move2
-    //% block="move in direction | $d | at speed $speedPercent %"
+    //% block="move in direction $d at speed $speedPercent %"
     //% speedPercent.min=-100 speedPercent.max=100
-    //% block.loc.cs="Jeď ve směru | $d |  rychlostí | $speedPercent | % |"
+    //% block.loc.cs="Jeď ve směru $d  rychlostí $speedPercent %"
     export function carMoveSimple(d: directions2, speedPercent: number = 0): void {
         //let s = speed.toString(16);   dont work in makercode
         let speed = Math.map(speedPercent, -100, 100, -127, 127);
@@ -76,7 +75,7 @@ namespace Robotrix {
 
     //% subcategory="Test"
     //% blockId=robotrix_expander_motor_run
-    //% block="run motor | $mot | at speed $speed"
+    //% block="run motor $mot at speed $speed"
     export function motorRun(mot: number, speed: number): void {
         let motHex = intToSignedHex(Math.map(speed, -100, 100, -127, 127));
         pins.i2cWriteNumber(85, stringToInt("0x11" + intToHex(mot) + motHex + "00"), NumberFormat.UInt32BE, false);
@@ -84,7 +83,7 @@ namespace Robotrix {
 
     //% subcategory="Test"
     //% blockId=robotrix_expander_motors_run
-    //% block="run|motor1 $m1|motor2 $m2|motor3 $m3| motor4 $m4"
+    //% block="run motor1 $m1 motor2 $m2 motor3 $m3 motor4 $m4"
     export function motorsRun(m1: number, m2: number, m3: number, m4: number): void {
         let m1Hex = intToSignedHex(Math.map(m1, -100, 100, -127, 127));
         let m2Hex = intToSignedHex(Math.map(m2, -100, 100, -127, 127));
@@ -112,7 +111,7 @@ namespace Robotrix {
             input = Math.floor(input / 16);
         }
 
-        if (hex.length == 1) { hex = '0' + hex; }
+        if (hex.length == 1) hex = '0' + hex; 
 
         return hex || '00'; // Return '0' if the number is 0
     }
