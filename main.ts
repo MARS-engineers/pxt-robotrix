@@ -7,11 +7,7 @@ namespace Robotrix {
         INCH = 148, // Duration of echo round-trip in Microseconds (uS) for two inches, 343 m/s at sea level and 20°C
     }
 
-    const SONAR_ECHO_PIN = DigitalPin.P0;
-    const SONARS_N = 6;
-    const MICROBIT_MAKERBIT_ULTRASONIC_OBJECT_DETECTED_ID = 798;
-    const MAX_ULTRASONIC_TRAVEL_TIME = 300 * DistanceUnit.CM;
-    const ULTRASONIC_MEASUREMENTS = 3;
+
 
     export enum ModuleType {
         //% block="All"
@@ -92,7 +88,7 @@ namespace Robotrix {
         let speed = Math.map(speedPercent, -100, 100, -127, 127);
         let speedHex = intToSignedHex(speed);
 
-        sendDataToExpander("0x" + "210" + d + speedHex + "00");
+        sendDataToExpander("0x" + "21" + "0" + d + speedHex + "00");
 
     }
 
@@ -204,7 +200,30 @@ namespace Robotrix {
         //% block="Back side"
         //% block.loc.cs="Zadek"
         BACK = 5
-    }
+    };
+
+    export enum SonarModes {
+        //% block="Ultra fast"
+        //% block.loc.cs="Velká rychlost"
+        ULTRA_FAST,
+        //% block="Fast"
+        //% block.loc.cs="Rychlost"
+        FAST,
+        //% block="Default"
+        //% block.loc.cs="Defaultní"
+        NORMAL,
+        //% block="Precision"
+        //% block.loc.cs="Precizní"
+        PRECISION
+    };
+    let SonarMode = SonarModes.NORMAL;
+
+
+    const SONAR_ECHO_PIN = DigitalPin.P0;
+    const SONARS_N = 6;
+    const MICROBIT_MAKERBIT_ULTRASONIC_OBJECT_DETECTED_ID = 798;
+    const MAX_ULTRASONIC_TRAVEL_TIME = 300 * DistanceUnit.CM;
+    let ULTRASONIC_MEASUREMENTS = 3;
 
     let _currentSonar = 0;
 
@@ -219,6 +238,8 @@ namespace Robotrix {
         travelTimeObservers: number[];
     }
     let ultrasonicState: UltrasonicDevice[] = [];
+
+    const TIME_BETWEEN_PULSE_MS = 5;
 
     /**
      * Configures the ultrasonic distance sensor and measures continuously in the background.
@@ -254,6 +275,35 @@ namespace Robotrix {
         control.inBackground(measureInBackground);
     }
 
+
+    /**
+     * Set sonar operating mode
+     * @param mode distance to object, eg: SonarModes.FAST
+     */
+    //% subcategory="Test"
+    //% blockId=robotrix_ultrasonic_set_mode
+    //% block="Set ultrasonic mode to | $mode"
+    //% block.loc.cs="Nastav mód ultrazvukových senzorů na &mode"
+    export function setUltrasonicSensorsMode(mode: SonarModes) {
+        SonarMode = mode;
+        switch (mode) {
+            case SonarModes.NORMAL:
+                ULTRASONIC_MEASUREMENTS = 4;
+                break;
+            case SonarModes.FAST:
+                ULTRASONIC_MEASUREMENTS = 2;
+                break;
+            case SonarModes.ULTRA_FAST:
+                ULTRASONIC_MEASUREMENTS = 1;
+                break;
+            case SonarModes.PRECISION:
+                ULTRASONIC_MEASUREMENTS = 6;
+                break;
+            default:
+                break;
+        }
+    }
+
     /**
      * Do something when an object is detected the first time within a specified range.
      * @param distance distance to object, eg: 20
@@ -261,8 +311,8 @@ namespace Robotrix {
      */
     //% subcategory="Ultrasonic"
     //% blockId=robotrix_ultrasonic_on_object_detected
-    //% block="On object detected once within | %distance | at direction %direction"
-    //% block.loc.cs="Když detekuješ překážku do vzdálenosti | %distance | ve směru | %direction |"
+    //% block="On object detected once within | $distance | at direction $direction"
+    //% block.loc.cs="Když detekuješ překážku do vzdálenosti | $distance | ve směru | $direction |"
     //% weight=69
     export function onUltrasonicObjectDetected(
         distance: number,
@@ -389,7 +439,6 @@ namespace Robotrix {
 
     function measureInBackground() {
         //const TIME_BETWEEN_PULSE_MS = 145;
-        const TIME_BETWEEN_PULSE_MS = 5;
         _currentSonar = 0;
 
 
