@@ -40,7 +40,7 @@ namespace Robotrix {
      */
     //% blockId="robotrix_ultrasonic_not_detected"
     //% block="object is not detected in $direction"
-    //% block.loc.cs="není detekována překážka ve směru &direction"
+    //% block.loc.cs="není detekována překážka ve směru $direction"
     //% weight=51
     export function isNotObjectDetected(direction: SonarDirections): boolean {
         if (getUltrasonicDistance(direction) < OBJECT_DETECTED_DISTANCE) return false;
