@@ -52,32 +52,42 @@ namespace Robotrix {
 
     /*  Bloky   */
 
-
+    /**
+     *  Enable motors function.
+     */
     //% subcategory="Movement"
     //% blockId=robotrix_expander_enable_motors
     //% block="enable|motors"
-    //% block.loc.cs="Zapni|motory"
+    //% block.loc.cs="Zapni motory"
     export function enableMotors(): void {
         sendDataToExpander("0x10010000");
     }
 
     //% subcategory="Movement"
     //% blockId=robotrix_expander_disable_motors
-    //% block="disable|motors"
-    //% block.loc.cs="Vypni|Motory"
+    //% block="disable motors"
+    //% block.loc.cs="Vypni Motory"
     export function disableMotors(): void {
         sendDataToExpander("0x10000000");
     }
 
+    /**
+     * Stop all movement of motors
+     */
     //% subcategory="Movement"
     //% blockId=robotrix_expander_stop
-    //% block="stop"
-    //% block.loc.cs="Zastav|na|místě"
+    //% block="Stop"
+    //% block.loc.cs="Zastav se na místě"
     export function stop(): void {
         sendDataToExpander("0x20000000");
     }
 
 
+    /**
+     * 
+     * @param d direction where we want to go, eg: directions2.STRAIGHT
+     * @param speedPercent speed in percent at with we want to go, eg: 100 or -100 to go in oposite direction
+     */
     //% subcategory="Movement"
     //% blockId=robotrix_expander_move2
     //% block="move in direction | $d | at speed $speedPercent %"
@@ -307,6 +317,7 @@ namespace Robotrix {
     /**
      * Do something when an object is detected the first time within a specified range.
      * @param distance distance to object, eg: 20
+     * @param direction direction where we want to detect object, eg: SonarDirections.FRONT
      * @param handler body code to run when the event is raised
      */
     //% subcategory="Ultrasonic"
