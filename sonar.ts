@@ -3,7 +3,7 @@ namespace Robotrix {
         Inspired by https://github.com/arielnh56/OctoSonar 
         Code for sonar modified from https://github.com/1010Technologies/pxt-makerbit-ultrasonic
     */
-    
+
     export enum DistanceUnit {
         //% block="cm"
         //% block.loc.cs="Centimetry"
@@ -196,11 +196,11 @@ namespace Robotrix {
     }
 
     /**
-* Returns the distance to an object in a range from 1 to 300 centimeters or up to 118 inch.
-* The maximum value is returned to indicate when no object was detected.
-* -1 is returned when the device is not connected.
-* @param sonar what sensor is used for measuring distance
-*/
+    * Returns the distance to an object in a range from 1 to 300 centimeters or up to 118 inch.
+    * The maximum value is returned to indicate when no object was detected.
+    * -1 is returned when the device is not connected.
+    * @param sonar what sensor is used for measuring distance
+    */
     //% subcategory="Ultrasonic"
     //% blockId="robotrix_ultrasonic_distance_all"
     //% block="distance measured by sonars"
