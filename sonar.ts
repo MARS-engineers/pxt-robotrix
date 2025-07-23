@@ -271,10 +271,7 @@ namespace Robotrix {
     }
 
     function measureInBackground() {
-        //const TIME_BETWEEN_PULSE_MS = 145;
         _currentSonar = 0;
-
-
 
         while (true) {
             const trips = ultrasonicState[_currentSonar].roundTrips;
@@ -328,9 +325,6 @@ namespace Robotrix {
         }
     }
 
-
-
-
     export function sendDataToSonar(input: string) {
         pins.i2cWriteNumber(
             0x20,
@@ -339,6 +333,7 @@ namespace Robotrix {
             false
         )
     }
+
     export function sendDataToSonarDec(input: number) {
         pins.i2cWriteNumber(
             0x20,
@@ -347,7 +342,5 @@ namespace Robotrix {
             false
         )
     }
-
-
 
 }
