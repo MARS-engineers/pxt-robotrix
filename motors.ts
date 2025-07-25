@@ -4,7 +4,7 @@ namespace Robotrix {
         //% block.loc.cs="Rovně"
         STRAIGHT = "00",
         //% block="Slide"
-        //% block.loc.cs="Doboku"
+        //% block.loc.cs="Do boku"
         SLIDE = "01",
         //% block="Turn around"
         //% block.loc.cs="Otáčej se na místě"
@@ -55,7 +55,7 @@ namespace Robotrix {
 
 
     /**
-     * 
+     * Move in direction
      * @param d direction where we want to go, eg: directions2.STRAIGHT
      * @param speedPercent speed in percent at with we want to go, eg: 100 or -100 to go in oposite direction
      */
