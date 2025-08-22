@@ -53,7 +53,7 @@ namespace Robotrix {
      * @param direction where we want to detect object
      * @returns `true` if object is not detected in OBJECT_DETECTED_DISTANCE range. `false` otherwise
      */
-    //% blockId="robotrix_ultrasonic_not_detected"
+    //% blockId="robotrix_expander_start_moving"
     //% block="start moving in $direction"
     //% block.loc.cs="Začni se pohybovat ve směru $direction"
     //% weight=60
