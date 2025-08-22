@@ -228,8 +228,8 @@ namespace Robotrix {
      */
     //% subcategory="Ultrasonic"
     //% blockId="robotrix_ultrasonic_less_than"
-    //% block="ultrasonic $direction distance is less than | $distance"
-    //% block.loc.cs="překážka není detekována ve směru | $direction"
+    //% block="Object is not detected in direcion $direction at distance $distance"
+    //% block.loc.cs="překážka není detekována ve směru | $direction do vzdálenosti | $distance"
     //% weight=50
     export function isUltrasonicDistanceLessThan(
         direction: SonarDirections,
@@ -325,7 +325,6 @@ namespace Robotrix {
 
 
                 triggerPulse(_currentSonar);
-
 
                 basic.pause(TIME_BETWEEN_PULSE_MS);
             }
