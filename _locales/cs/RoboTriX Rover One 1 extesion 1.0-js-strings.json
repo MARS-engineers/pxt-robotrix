@@ -33,14 +33,9 @@
   "Robotrix.isNotObjectDetected|block": "object is not detected in $direction",
   "Robotrix.isObjectDetected|block": "object is detected in $direction",
   "Robotrix.isUltrasonicDistanceLessThan|block": "Object is not detected in direcion $direction at distance $distance",
-  "Robotrix.measureData|block": "Měř sensory",
   "Robotrix.motorRun|block": "Nastav motor $mot na rychlost $speed",
   "Robotrix.motorsRun|block": "run motor1 $m1 motor2 $m2 motor3 $m3 motor4 $m4",
   "Robotrix.onUltrasonicObjectDetected|block": "Když je objekt detekován do | $distance cm ve směru $direction",
-  "Robotrix.SensorsreadHumidity|block": "Naměřená vlhkost",
-  "Robotrix.readPressure|block": "Naměřený tlak",
-  "Robotrix.readTemperature|block": "Naměřená teplota",
-  "Robotrix.readeCO2|block": "Naměřený eCO2",
   "Robotrix.setUltrasonicSensorsMode|block": "Nastav mód ultrasonických sensorů na $mode",
   "Robotrix.setupGasSensor|block": "Zapni sensory",
   "Robotrix.startMoving|block": "start moving in $direction",
@@ -60,5 +55,11 @@
   "{id:subcategory}Pins": "Piny",
   "{id:subcategory}Sensors": "Sensory",
   "{id:subcategory}Test": "Test",
-  "{id:subcategory}Ultrasonic": "Ultrasonic"
+  "{id:subcategory}Ultrasonic": "Ultrasonic",
+  
+  "Robotrix.SensorsreadHumidity|block": "Naměřená vlhkost",
+  "Robotrix.readPressure|block": "Naměřený tlak",
+  "Robotrix.readTemperature|block": "Naměřená teplota",
+  "Robotrix.readeCO2|block": "Naměřený eCO2",
+  "Robotrix.measureData|block": "Měř sensory"
 }

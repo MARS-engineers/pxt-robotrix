@@ -51,7 +51,6 @@ namespace Robotrix {
     //% group="Measure"
     //% blockId=robotrix_sensor_bme688_measure_all
     //% block="measure all data readings"
-    //% block.loc.cs="Proveď měření sensorů"
     //% weight=100 blockGap=8
     export function measureData(): void {
         if (bme688InitialiseFlag == false) {
