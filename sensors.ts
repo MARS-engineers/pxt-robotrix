@@ -26,12 +26,24 @@ namespace Robotrix {
         measureData()
     }
 
+
+
+    /**
+* Setup the gas sensor ready to measure gas resistance.
+*/
+    //% subcategory="Sensors"
+    //% group="Test"
+    //% blockId=sensorTest
+    //% block="test1234"
+    export function sensorTest(): void {
+    }
+
+
     /**
     * Setup the gas sensor ready to measure gas resistance.
     */
     //% subcategory="Sensors"
     //% group="Setup"
-    //% group.loc.cs="Nastavení"
     //% blockId=robotrix_sensors_setup_gas
     //% block="setup gas sensor"
     //% block.loc.cs="Zapni sensory"
