@@ -33,7 +33,7 @@ namespace Robotrix {
 */
     //% subcategory="Sensors"
     //% group="Test"
-    //% blockId=sensorTest
+    //% blockId=robotrix_sensors_test
     //% block="test1234"
     export function sensorTest(): void {
     }
