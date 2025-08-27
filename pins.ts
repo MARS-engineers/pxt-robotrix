@@ -1,4 +1,6 @@
 namespace Robotrix {
+    //% block="Pin Outs"
+    //% block.loc.cs="Pin výstupy"
     export enum PinOuts {
         //% block="RP0"
         RP0 = 4,
