@@ -16,7 +16,7 @@ Slouží k úpravě tohoto úložiště v aplikaci MakeCode.
 
 * otevřít [https://makecode.microbit.org/](https://makecode.microbit.org/)
 * klikněte na možnost **Import** a poté na **Import adresy URL**
-* vložte **https://github.com/aotahal/pxt-robotrix** a klikněte na možnost import
+* vložte **https://github.com/MARS-engineers/pxt-robotrix** a klikněte na možnost import
 
 #### Metadata (slouží k vyhledávání, vykreslování)
 
