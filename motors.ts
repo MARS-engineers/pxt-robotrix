@@ -61,9 +61,9 @@ namespace Robotrix {
      */
     //% subcategory="Movement"
     //% blockId=robotrix_expander_move2
-    //% block="move in direction $d at speed $speedPercent %"
+    //% block="move in direction $d at speed $speedPercent"
     //% speedPercent.min=-100 speedPercent.max=100
-    //% block.loc.cs="Jeď ve směru $d  rychlostí $speedPercent %"
+    //% block.loc.cs="Jeď ve směru $d  rychlostí $speedPercent"
     export function carMoveSimple(d: directions2, speedPercent: number = 0): void {
         //let s = speed.toString(16);   dont work in makercode
         let speed = Math.map(speedPercent, -100, 100, -127, 127);

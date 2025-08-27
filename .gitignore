@@ -12,3 +12,4 @@ _site
 .simstate.json
 package-lock.json
 package.json
+pxt-robotrix.code-workspace

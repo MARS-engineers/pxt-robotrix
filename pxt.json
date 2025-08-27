@@ -5,7 +5,8 @@
         "core": "*",
         "radio": "*",
         "microphone": "*",
-        "servo": "*"
+        "servo": "*",
+        "kitronik_BME688": "github:KitronikLtd/pxt-kitronik-bme688-base#v0.0.9"
     },
     "files": [
         "main.blocks",
@@ -13,6 +14,7 @@
         "sonar.ts",
         "motors.ts",
         "pins.ts",
+        "sensors.ts",
         "README.md",
         "main.py",
         "sim/rled.json",
