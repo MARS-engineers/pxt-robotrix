@@ -1,4 +1,6 @@
 namespace Robotrix {
+    //% subcategory="Pins"
+    //% subcategory.loc.cs="Piny"
     //% block="Pin Outs"
     //% block.loc.cs="Pin výstupy"
     export enum PinOuts {
