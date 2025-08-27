@@ -12,6 +12,7 @@
         "main.ts",
         "sonar.ts",
         "motors.ts",
+        "pins.ts",
         "README.md",
         "main.py",
         "sim/rled.json",
