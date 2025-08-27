@@ -26,19 +26,6 @@ namespace Robotrix {
         measureData()
     }
 
-
-
-    /**
-* Setup the gas sensor ready to measure gas resistance.
-*/
-    //% subcategory="Sensors"
-    //% group="Test"
-    //% blockId=robotrix_sensors_test
-    //% block="test1234"
-    export function sensorTest(): void {
-    }
-
-
     /**
     * Setup the gas sensor ready to measure gas resistance.
     */
@@ -46,7 +33,6 @@ namespace Robotrix {
     //% group="Setup"
     //% blockId=robotrix_sensors_setup_gas
     //% block="setup gas sensor"
-    //% block.loc.cs="Zapni sensory"
     //% weight=100 blockGap=8
     export function setupGasSensor(): void {
         if (bme688InitialiseFlag == false) {

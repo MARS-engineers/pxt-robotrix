@@ -1,5 +1,4 @@
 {
-  "Robotrix.sensorTest|block": "1234Test",
   "Robotrix.RLed.turnOffLED|block": "%led|turn off the led",
   "Robotrix.RLed.turnOnLED|block": "%led|turn on the LED",
   "Robotrix.createLED|block": "New LED on address %address",
