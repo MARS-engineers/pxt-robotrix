@@ -18,9 +18,7 @@
         "README.md",
         "main.py",
         "sim/rled.json",
-        "sim/rled.png",
-        "_locales/cs/RoboTriX Rover One 1 extesion 1.0-jsdoc-strings.json",
-        "_locales/cs/RoboTriX Rover One 1 extesion 1.0-js-strings.json"
+        "sim/rled.png"
     ],
     "testFiles": [
         "test.ts"
