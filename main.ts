@@ -15,6 +15,7 @@ namespace Robotrix {
     export function TurnOnCar() {
         enableMotors();
         connectUltrasonicDistanceSensor();
+        setupGasSensor();
     }
 
 
