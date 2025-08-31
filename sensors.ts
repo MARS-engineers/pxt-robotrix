@@ -33,6 +33,7 @@ namespace Robotrix {
     //% group="Setup"
     //% blockId=robotrix_sensors_setup_gas
     //% block="setup gas sensor"
+    //% block.loc.cs="Zapni sensory"
     //% weight=100 blockGap=8
     export function setupGasSensor(): void {
         if (bme688InitialiseFlag == false) {
@@ -51,6 +52,7 @@ namespace Robotrix {
     //% group="Measure"
     //% blockId=robotrix_sensor_bme688_measure_all
     //% block="measure all data readings"
+    //% block.loc.cs="Proveď měření sensorů"
     //% weight=100 blockGap=8
     export function measureData(): void {
         if (bme688InitialiseFlag == false) {
