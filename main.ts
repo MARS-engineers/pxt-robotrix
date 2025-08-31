@@ -5,14 +5,15 @@ namespace Robotrix {
 
 
     /**
-     * Does not do anythink
+     * The function does nothing.
+     * @param arg input argument 
      */
     //% subcategory="Test"
     //% blockId="robotrix_template_function"
-    //% block="template function"
-    //% block.loc.cs="Zapni ultrazvukové senzory"
+    //% block="template function $arg"
+    //% block.loc.cs="zkušební funkce $arg"
     //% weight=80
-    export function templateFunction(): void {
+    export function templateFunction(arg: String): void {
     }
 
 
