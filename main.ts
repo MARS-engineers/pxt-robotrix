@@ -3,6 +3,19 @@ namespace Robotrix {
     const OBJECT_DETECTED_DISTANCE = 20
     const DEFAULT_SPEED = 50;
 
+
+    /**
+     * Does not do anythink
+     */
+    //% subcategory="Test"
+    //% blockId="robotrix_template_function"
+    //% block="template function"
+    //% block.loc.cs="Zapni ultrazvukové senzory"
+    //% weight=80
+    export function templateFunction(): void {
+    }
+
+
     // Basic functions 
 
     /**
@@ -20,7 +33,7 @@ namespace Robotrix {
 
 
 
-    
+
     /**
      * 
      * @param direction where we want to detect object
@@ -63,7 +76,7 @@ namespace Robotrix {
     }
 
 
-    
+
     /* OLD  */
     export enum directions_old {
         STOP = "00",
