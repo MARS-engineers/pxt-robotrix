@@ -50,8 +50,7 @@ namespace Robotrix {
     };
     let SonarMode = SonarModes.NORMAL;
 
-
-    const SONAR_ECHO_PIN = DigitalPin.P0;
+    let SONAR_ECHO_PIN = RPtoPin(PinOuts.SONAR_IRQ);
     const SONARS_N = 6;
     const MICROBIT_MAKERBIT_ULTRASONIC_OBJECT_DETECTED_ID = 798;
     const MAX_ULTRASONIC_TRAVEL_TIME = 300 * DistanceUnit.CM;

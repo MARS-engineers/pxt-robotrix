@@ -31,7 +31,6 @@ namespace Robotrix {
     */
     //% subcategory="Sensors"
     //% group="Setup"
-    //% group.loc.cs="Nastavení"
     //% blockId=robotrix_sensors_setup_gas
     //% block="setup gas sensor"
     //% block.loc.cs="Zapni sensory"
