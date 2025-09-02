@@ -1,5 +1,11 @@
 //% color=190 weight=100 icon="\uf1b9" block="RoboTriX Rover 1"
 namespace Robotrix {
+    export enum BoardVersion {
+        V01 = 1,
+        V02 = 2,
+    }
+    export let RobotrixHWVersion = BoardVersion.V01;
+
     const OBJECT_DETECTED_DISTANCE = 20
     const DEFAULT_SPEED = 50;
 
@@ -16,6 +22,18 @@ namespace Robotrix {
     export function templateFunction(arg: String): void {
     }
 
+    /**
+    * The function does nothing.
+    * @param arg input argument 
+    */
+    //% subcategory="Test"
+    //% blockId="robotrix_set_board_version"
+    //% block="set HW version $v"
+    //% block.loc.cs="nastav HW verzi $v"
+    //% weight=80
+    export function setBoardVersion(v: BoardVersion): void {
+        RobotrixHWVersion = v;
+    }
 
     // Basic functions 
 
