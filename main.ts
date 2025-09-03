@@ -2,7 +2,7 @@
 namespace Robotrix {
     export enum BoardVersion {
         V01 = 1,
-        V02 = 2,
+        V02 = 2
     }
     export let RobotrixHWVersion = BoardVersion.V01;
 
