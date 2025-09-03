@@ -1,4 +1,10 @@
+/**
+ * Library for MARS-Engineers RoboTriX Rover.
+ */
+
 //% color=190 weight=100 icon="\uf1b9" block="RoboTriX Rover 1"
+///% groups=['LED matrix', 'Control flow', 'others']
+
 namespace Robotrix {
     export enum BoardVersion {
         V01 = 1,
@@ -7,7 +13,7 @@ namespace Robotrix {
     export let RobotrixHWVersion = BoardVersion.V01;
 
     const OBJECT_DETECTED_DISTANCE = 20
-    const DEFAULT_SPEED = 50;
+    let DEFAULT_SPEED = 50;
 
 
     /**
@@ -61,6 +67,7 @@ namespace Robotrix {
     //% blockId="robotrix_ultrasonic_detected"
     //% block="object is detected in $direction"
     //% block.loc.cs="překážka je detekována ve směru | $direction"
+    //% group="Detekce"
     //% weight=50
     export function isObjectDetected(direction: SonarDirections): boolean {
         if (getUltrasonicDistance(direction) < OBJECT_DETECTED_DISTANCE) return true;
@@ -75,6 +82,7 @@ namespace Robotrix {
     //% blockId="robotrix_ultrasonic_not_detected"
     //% block="object is not detected in $direction"
     //% block.loc.cs="není detekována překážka ve směru $direction"
+    //% group="Detekce"
     //% weight=51
     export function isNotObjectDetected(direction: SonarDirections): boolean {
         if (getUltrasonicDistance(direction) < OBJECT_DETECTED_DISTANCE) return false;
@@ -82,19 +90,31 @@ namespace Robotrix {
     }
 
     /**
-     * 
-     * @param direction where we want to detect object
-     * @returns `true` if object is not detected in OBJECT_DETECTED_DISTANCE range. `false` otherwise
+     * Start moving in direction
+     * @param direction direction 
      */
     //% blockId="robotrix_expander_start_moving"
     //% block="start moving in $direction"
     //% block.loc.cs="Začni se pohybovat ve směru $direction"
+    //% group="Pohyb"
     //% weight=60
     export function startMoving(direction: directions2) {
         carMoveSimple(direction, DEFAULT_SPEED);
     }
 
-
+    /**
+     * Set speed for startMoving function
+     * @param speed set speed
+     */
+    //% blockId="robotrix_basic_set_speed"
+    //% block="Set speed to $speed"
+    //% block.loc.cs="Nastav rychost na $speed"
+    //% speed.shadow="speedPicker"
+    //% group="Pohyb"
+    //% weight=60
+    export function setSpeed(speed: number) {
+        DEFAULT_SPEED = speed;
+    }
 
     /* OLD  */
     export enum directions_old {
