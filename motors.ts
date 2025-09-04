@@ -23,6 +23,67 @@ namespace Robotrix {
         DIAG_RIGHT = "06"
     };
 
+    export enum CarMoveDirections {
+        //% block="Diagonal forward left"
+        //% block.loc.cs="Diagonálně vpřed vlevo"
+        DIAG_FWD_LEFT = "04",
+
+        //% block="Forward"
+        //% block.loc.cs="Dopředu"
+        FORWARD = "00",
+
+        //% block="Diagonal forward right"
+        //% block.loc.cs="Diagonálně vpřed vpravo"
+        DIAG_FWD_RIGHT = "05",
+
+        //% block="Slide right"
+        //% block.loc.cs="Posuň se doprava"
+        SLIDE_RIGHT = "02",
+
+        //% block="Stop"
+        //% block.loc.cs="Zastav"
+        STOP = "02",
+
+        //% block="Slide left"
+        //% block.loc.cs="Posuň se doleva"
+        SLIDE_LEFT = "03",
+
+        //% block="Diagonal backward left"
+        //% block.loc.cs="Diagonálně vzad vlevo"
+        DIAG_BACK_LEFT = "06",
+
+        //% block="Backward"
+        //% block.loc.cs="Dozadu"
+        BACKWARD = "01",
+
+        //% block="Diagonal backward right"
+        //% block.loc.cs="Diagonálně vzad vpravo"
+        DIAG_BACK_RIGHT = "07",
+
+        //% block="Rotate left"
+        //% block.loc.cs="Otoč se doleva"
+        ROTATE_LEFT = "08",
+
+        //% block="Rotate right"
+        //% block.loc.cs="Otoč se doprava"
+        ROTATE_RIGHT = "09"
+    }
+
+
+    /**
+     *  Delete this.
+     */
+    //% subcategory="Test"
+    //% blockId=robotrix_expander_test_motors
+    //% block="test motors $direction"
+    //% block.loc.cs="Jeď ve směru $direction"
+    //% direction.fieldEditor="gridpicker"
+    //% direction.fieldOptions.width=220
+    //% direction.fieldOptions.columns=3
+    //% speed.shadow="speedPicker"
+    export function testmotors(direction: CarMoveDirections, speed: number): void {
+    }
+
     /**
      *  Enable motors function.
      */
@@ -64,6 +125,7 @@ namespace Robotrix {
     //% block="move in direction $d at speed $speedPercent"
     //% speedPercent.min=-100 speedPercent.max=100
     //% block.loc.cs="Jeď ve směru $d  rychlostí $speedPercent"
+    //% speedPercent.shadow="speedPicker"
     export function carMoveSimple(d: directions2, speedPercent: number = 0): void {
         //let s = speed.toString(16);   dont work in makercode
         let speed = Math.map(speedPercent, -100, 100, -127, 127);
@@ -76,6 +138,7 @@ namespace Robotrix {
     //% subcategory="Test"
     //% blockId=robotrix_expander_motor_run
     //% block="run motor $mot at speed $speed"
+    //% speed.shadow="speedPicker"
     export function motorRun(mot: number, speed: number): void {
         let motHex = intToSignedHex(Math.map(speed, -100, 100, -127, 127));
         pins.i2cWriteNumber(85, stringToInt("0x11" + intToHex(mot) + motHex + "00"), NumberFormat.UInt32BE, false);
@@ -111,7 +174,7 @@ namespace Robotrix {
             input = Math.floor(input / 16);
         }
 
-        if (hex.length == 1) hex = '0' + hex; 
+        if (hex.length == 1) hex = '0' + hex;
 
         return hex || '00'; // Return '0' if the number is 0
     }

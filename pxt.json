@@ -6,7 +6,8 @@
         "radio": "*",
         "microphone": "*",
         "servo": "*",
-        "kitronik_BME688": "github:KitronikLtd/pxt-kitronik-bme688-base#v0.0.9"
+        "kitronik_BME688": "github:KitronikLtd/pxt-kitronik-bme688-base#v0.0.9",
+        "ws2812b": "github:microsoft/pxt-ws2812b#v0.1.1"
     },
     "files": [
         "main.blocks",
@@ -17,6 +18,7 @@
         "sensors.ts",
         "README.md",
         "main.py",
+        "leds.ts",
         "sim/rled.json",
         "sim/rled.png"
     ],

@@ -4,7 +4,7 @@ namespace Robotrix {
     //% subcategory.loc.cs="Piny"
     //% block="Pin Outs"
     //% block.loc.cs="Pin výstupy"
-    export enum PinOuts {
+    export enum RobotrixPins {
         //% block="RP0"
         RP0,
         //% block="RP1"
@@ -41,43 +41,60 @@ namespace Robotrix {
     //% block="Converet RP $rp to pin"
     //% block.loc.cs="převeď RP $rp na pin"
     //% weight=80
-    export function RPtoPin(rp: PinOuts): DigitalPin {
+    export function RPtoPin(rp: RobotrixPins): DigitalPin {
         switch (RobotrixHWVersion) {
             case BoardVersion.V01:
                 switch (rp) {
-                    case PinOuts.RP0: return DigitalPin.P4;
-                    case PinOuts.RP1: return DigitalPin.P5;
-                    case PinOuts.RP2: return DigitalPin.P6;
-                    case PinOuts.RP3: return DigitalPin.P7;
-                    case PinOuts.RP4: return DigitalPin.P1;
-                    case PinOuts.RP5: return DigitalPin.P11;
-                    case PinOuts.RP6: return DigitalPin.P13;
-                    case PinOuts.RP7: return DigitalPin.P14;
-                    case PinOuts.SONAR_IRQ: return DigitalPin.P0;
-                    case PinOuts.RGB: return DigitalPin.P10;
+                    case RobotrixPins.RP0: return DigitalPin.P4;
+                    case RobotrixPins.RP1: return DigitalPin.P5;
+                    case RobotrixPins.RP2: return DigitalPin.P6;
+                    case RobotrixPins.RP3: return DigitalPin.P7;
+                    case RobotrixPins.RP4: return DigitalPin.P1;
+                    case RobotrixPins.RP5: return DigitalPin.P11;
+                    case RobotrixPins.RP6: return DigitalPin.P13;
+                    case RobotrixPins.RP7: return DigitalPin.P14;
+                    case RobotrixPins.SONAR_IRQ: return DigitalPin.P0;
+                    case RobotrixPins.RGB: return DigitalPin.P10;
                     default:
-                        control.fail("Pin not supported in V0.1");
+                        console.log("Pin not supported in V0.1, value=" + rp);
                         return DigitalPin.P0;
                 }
             case BoardVersion.V02:
                 switch (rp) {
-                    case PinOuts.RP0: return DigitalPin.P4;
-                    case PinOuts.RP1: return DigitalPin.P5;
-                    case PinOuts.RP2: return DigitalPin.P6;
-                    case PinOuts.RP3: return DigitalPin.P7;
-                    case PinOuts.RP4: return DigitalPin.P8;
-                    case PinOuts.RP5: return DigitalPin.P2;
-                    case PinOuts.RP6: return DigitalPin.P13;
-                    case PinOuts.RP7: return DigitalPin.P14;
-                    case PinOuts.RP8: return DigitalPin.P15;
-                    case PinOuts.RP9: return DigitalPin.P16;
-                    case PinOuts.SONAR_IRQ: return DigitalPin.P0;
-                    case PinOuts.RGB: return DigitalPin.P1;
+                    case RobotrixPins.RP0: return DigitalPin.P4;
+                    case RobotrixPins.RP1: return DigitalPin.P5;
+                    case RobotrixPins.RP2: return DigitalPin.P6;
+                    case RobotrixPins.RP3: return DigitalPin.P7;
+                    case RobotrixPins.RP4: return DigitalPin.P8;
+                    case RobotrixPins.RP5: return DigitalPin.P2;
+                    case RobotrixPins.RP6: return DigitalPin.P13;
+                    case RobotrixPins.RP7: return DigitalPin.P14;
+                    case RobotrixPins.RP8: return DigitalPin.P15;
+                    case RobotrixPins.RP9: return DigitalPin.P16;
+                    case RobotrixPins.SONAR_IRQ: return DigitalPin.P0;
+                    case RobotrixPins.RGB: return DigitalPin.P1;
                     default:
-                        control.fail("Pin not supported in V0.2");
+                        console.log("Pin not supported in V0.2, value=" + rp);
                         return DigitalPin.P0;
                 }
-
+            case BoardVersion.NOBOARD:  // If not using Robotrix board map RP directly to microbit pinsS
+                switch (rp) {
+                    case RobotrixPins.RP0: return DigitalPin.P0;
+                    case RobotrixPins.RP1: return DigitalPin.P1;
+                    case RobotrixPins.RP2: return DigitalPin.P2;
+                    case RobotrixPins.RP3: return DigitalPin.P3;
+                    case RobotrixPins.RP4: return DigitalPin.P4;
+                    case RobotrixPins.RP5: return DigitalPin.P5;
+                    case RobotrixPins.RP6: return DigitalPin.P6;
+                    case RobotrixPins.RP7: return DigitalPin.P7;
+                    case RobotrixPins.RP8: return DigitalPin.P8;
+                    case RobotrixPins.RP9: return DigitalPin.P9;
+                    case RobotrixPins.SONAR_IRQ: return DigitalPin.P10;
+                    case RobotrixPins.RGB: return DigitalPin.P11;
+                    default:
+                        console.log("Pin not supported in NOBOARD, value=" + rp);
+                        return DigitalPin.P0;
+                }
             default:
                 control.fail("Unknown board version");
                 return DigitalPin.P0;
