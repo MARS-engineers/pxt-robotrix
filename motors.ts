@@ -26,47 +26,53 @@ namespace Robotrix {
     export enum CarMoveDirections {
         //% block="Diagonal forward left"
         //% block.loc.cs="Diagonálně vpřed vlevo"
-        DIAG_FWD_LEFT = "04",
+        DIAG_FWD_LEFT = "05",
 
         //% block="Forward"
         //% block.loc.cs="Dopředu"
-        FORWARD = "00",
+        FORWARD = "01",
 
         //% block="Diagonal forward right"
         //% block.loc.cs="Diagonálně vpřed vpravo"
-        DIAG_FWD_RIGHT = "05",
+        DIAG_FWD_RIGHT = "06",
 
         //% block="Slide right"
         //% block.loc.cs="Posuň se doprava"
-        SLIDE_RIGHT = "02",
+        SLIDE_RIGHT = "03",
 
         //% block="Stop"
         //% block.loc.cs="Zastav"
-        STOP = "02",
+        STOP = "00",
 
         //% block="Slide left"
         //% block.loc.cs="Posuň se doleva"
-        SLIDE_LEFT = "03",
+        SLIDE_LEFT = "04",
 
         //% block="Diagonal backward left"
         //% block.loc.cs="Diagonálně vzad vlevo"
-        DIAG_BACK_LEFT = "06",
+        DIAG_BACK_LEFT = "07",
 
         //% block="Backward"
         //% block.loc.cs="Dozadu"
-        BACKWARD = "01",
+        BACKWARD = "02",
 
         //% block="Diagonal backward right"
         //% block.loc.cs="Diagonálně vzad vpravo"
-        DIAG_BACK_RIGHT = "07",
+        DIAG_BACK_RIGHT = "08",
+    }
+
+    export enum CarRotateDirections {
+        //% block="Stop"
+        //% block.loc.cs="Zastav"
+        STOP = "00",
 
         //% block="Rotate left"
         //% block.loc.cs="Otoč se doleva"
-        ROTATE_LEFT = "08",
+        ROTATE_LEFT = "09",
 
         //% block="Rotate right"
         //% block.loc.cs="Otoč se doprava"
-        ROTATE_RIGHT = "09"
+        ROTATE_RIGHT = "0A"
     }
 
 
@@ -114,6 +120,28 @@ namespace Robotrix {
         sendDataToExpander("0x20000000");
     }
 
+    /**
+     * Move in direction
+     * @param direction direction where we want to go, eg: directions2.STRAIGHT
+     * @param speedPercent speed in percent at with we want to go, eg: 100 or -100 to go in oposite direction
+     */
+    //% subcategory="Movement"
+    //% blockId=robotrix_motors_move
+    //% block="move in direction $direction at speed $speedPercent"
+    //% speedPercent.min=-100 speedPercent.max=100
+    //% block.loc.cs="Jeď ve směru 2 $direction  rychlostí $speedPercent"
+    //% speedPercent.shadow="speedPicker"
+    //% direction.fieldEditor="gridpicker"
+    //% direction.fieldOptions.width=220
+    //% direction.fieldOptions.columns=3
+    export function moveInDirection(direction: CarMoveDirections, speedPercent: number = 0): void {
+        //let s = speed.toString(16);   dont work in makercode
+        let speed = Math.map(speedPercent, -100, 100, -127, 127);
+        let speedHex = intToSignedHex(speed);
+
+        sendDataToExpander("0x" + "31" + "0" + direction + speedHex + "00");
+
+    }
 
     /**
      * Move in direction
@@ -126,6 +154,7 @@ namespace Robotrix {
     //% speedPercent.min=-100 speedPercent.max=100
     //% block.loc.cs="Jeď ve směru $d  rychlostí $speedPercent"
     //% speedPercent.shadow="speedPicker"
+    //% deprecated=true
     export function carMoveSimple(d: directions2, speedPercent: number = 0): void {
         //let s = speed.toString(16);   dont work in makercode
         let speed = Math.map(speedPercent, -100, 100, -127, 127);
@@ -208,7 +237,7 @@ namespace Robotrix {
 
     export function sendDataToExpander(input: string) {
         pins.i2cWriteNumber(
-            85,
+            EXPANDER_ADRESS,
             stringToInt(input),
             NumberFormat.UInt32BE,
             false
