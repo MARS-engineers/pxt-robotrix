@@ -16,9 +16,10 @@
         "motors.ts",
         "pins.ts",
         "sensors.ts",
+        "settings.ts",
+        "leds.ts",
         "README.md",
         "main.py",
-        "leds.ts",
         "sim/rled.json",
         "sim/rled.png"
     ],
