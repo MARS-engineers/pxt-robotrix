@@ -35,7 +35,10 @@ namespace Robotrix {
     //% block.loc.cs="přečti FW verzi"
     //% weight=60
     export function getFirmwareVersion(): string {
-        if (RobotrixFWVersion <= FirwareVersion.V01) return "NaN";
+        if (RobotrixFWVersion <= FirwareVersion.V01) {
+            console.log("This function is only fupported in FW >0.2!");
+            return "NaN";
+        }
         pins.i2cWriteNumber(EXPANDER_ADRESS, Math.trunc(parseInt("0x03010000")), NumberFormat.UInt32BE, false);
 
         let buf = pins.i2cReadBuffer(EXPANDER_ADRESS, 4, false) // čti 4 bajty
@@ -52,7 +55,10 @@ namespace Robotrix {
     //% block.loc.cs="přečti HW verzi"
     //% weight=50
     export function getHardwareVersion(): string {
-        if (RobotrixFWVersion <= FirwareVersion.V01) return "NaN";
+        if (RobotrixFWVersion <= FirwareVersion.V01) {
+            console.log("This function is only fupported in FW >0.2!");
+            return "NaN";
+        }
         pins.i2cWriteNumber(EXPANDER_ADRESS, Math.trunc(parseInt("0x03020000")), NumberFormat.UInt32BE, false);
 
         let buf = pins.i2cReadBuffer(EXPANDER_ADRESS, 4, false) // čti 4 bajty
@@ -69,7 +75,10 @@ namespace Robotrix {
     //% block.loc.cs="přečti MEDI"
     //% weight=50
     export function getMEDI(): string {
-        if (RobotrixFWVersion <= FirwareVersion.V01) return "NaN";
+        if (RobotrixFWVersion <= FirwareVersion.V01) {
+            console.log("This function is only fupported in FW >0.2!");
+            return "NaN";
+        }
         pins.i2cWriteNumber(EXPANDER_ADRESS, Math.trunc(parseInt("0x03030000")), NumberFormat.UInt32BE, false);
 
         let buf = pins.i2cReadBuffer(EXPANDER_ADRESS, 11, false) // čti 4 bajty
