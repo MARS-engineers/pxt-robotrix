@@ -408,7 +408,7 @@ namespace Robotrix {
                     if (rgb == Colors.DEFAULT) color = Colors.ORANGE;
                     while (this.ledAnimationRunning) {
                         this.clear();
-                        for (let i = 1; i <= this.length() - 1; i++) {
+                        for (let i = this.length()-2; i <= this.length(); i++) {
                             this.setPixelColor(i, color);
                         }
                         this.show();
