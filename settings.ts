@@ -1,5 +1,18 @@
 namespace Robotrix {
     /**
+     * Restart Board
+     */
+    //% subcategory="Settings"
+    //% blockId="robotrix_restart_board"
+    //% block="restart board"
+    //% block.loc.cs="restartuj desku"
+    //% weight=80
+    export function restartBoard(): void {
+        if (RobotrixFWVersion <= FirwareVersion.V01) console.log("This function is only fupported in FW >0.2!");
+        pins.i2cWriteNumber(EXPANDER_ADRESS, Math.trunc(parseInt("0x02010000")), NumberFormat.UInt32BE, false);
+    }
+
+    /**
      * Set Hardware version
      * @param v version eq. V01 
      */
@@ -41,7 +54,7 @@ namespace Robotrix {
         }
         pins.i2cWriteNumber(EXPANDER_ADRESS, Math.trunc(parseInt("0x03010000")), NumberFormat.UInt32BE, false);
 
-        let buf = pins.i2cReadBuffer(EXPANDER_ADRESS, 4, false) // čti 4 bajty
+        let buf = pins.i2cReadBuffer(EXPANDER_ADRESS, 6, false) // čti 6 bajtů
         return convertBytesToString(buf);
     }
 
@@ -61,7 +74,7 @@ namespace Robotrix {
         }
         pins.i2cWriteNumber(EXPANDER_ADRESS, Math.trunc(parseInt("0x03020000")), NumberFormat.UInt32BE, false);
 
-        let buf = pins.i2cReadBuffer(EXPANDER_ADRESS, 4, false) // čti 4 bajty
+        let buf = pins.i2cReadBuffer(EXPANDER_ADRESS, 6, false) // čti 6 bajtů
         return convertBytesToString(buf);
     }
 
