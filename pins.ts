@@ -29,6 +29,8 @@ namespace Robotrix {
         SONAR_IRQ,
         //% block="RGB"
         RGB,
+        //% block="Disconected"
+        NOPIN,
     }
 
     /**
@@ -55,6 +57,7 @@ namespace Robotrix {
                     case RobotrixPins.RP7: return DigitalPin.P14;
                     case RobotrixPins.SONAR_IRQ: return DigitalPin.P0;
                     case RobotrixPins.RGB: return DigitalPin.P10;
+                    case RobotrixPins.NOPIN: return DigitalPin.P0;
                     default:
                         console.log("Pin not supported in V0.1, value=" + rp);
                         return DigitalPin.P0;
@@ -73,6 +76,7 @@ namespace Robotrix {
                     case RobotrixPins.RP9: return DigitalPin.P16;
                     case RobotrixPins.SONAR_IRQ: return DigitalPin.P0;
                     case RobotrixPins.RGB: return DigitalPin.P1;
+                    case RobotrixPins.NOPIN: return DigitalPin.P0;
                     default:
                         console.log("Pin not supported in V0.2, value=" + rp);
                         return DigitalPin.P0;
@@ -91,6 +95,7 @@ namespace Robotrix {
                     case RobotrixPins.RP9: return DigitalPin.P9;
                     case RobotrixPins.SONAR_IRQ: return DigitalPin.P10;
                     case RobotrixPins.RGB: return DigitalPin.P11;
+                    case RobotrixPins.NOPIN: return DigitalPin.P0;
                     default:
                         console.log("Pin not supported in NOBOARD, value=" + rp);
                         return DigitalPin.P0;
@@ -99,6 +104,21 @@ namespace Robotrix {
                 control.fail("Unknown board version");
                 return DigitalPin.P0;
         }
+    }
+
+
+    /**
+    * Setup line sensor
+    */
+    //% subcategory="Pins"
+    //% blockId="robotrix_pins_read_bol"
+    //% block="Read bolean value from %pin"
+    //% block.loc.cs="Čti logickou hodnotu z %pin"
+    //% weight=80
+    export function readBol(pin?: RobotrixPins): boolean {
+        if (pin == RobotrixPins.NOPIN) return false;
+        if (pins.digitalReadPin(RPtoPin(pin))) return true;
+        else return false;
     }
 
 }
