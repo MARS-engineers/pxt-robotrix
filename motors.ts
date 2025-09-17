@@ -117,7 +117,7 @@ namespace Robotrix {
     //% block="Stop"
     //% block.loc.cs="Zastav se na místě"
     export function stop(): void {
-        sendDataToExpander("0x20000000");
+        sendDataToExpander("0x21000000");
     }
 
     /**
