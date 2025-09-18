@@ -13,17 +13,10 @@ namespace Robotrix {
     }
     export let RobotrixHWVersion = BoardVersion.V01;
 
-    export enum FirwareVersion {
-        V01 = 1,
-        V02 = 2,
-        NOBOARD = 0
-    }
-    export let RobotrixFWVersion = FirwareVersion.V01;
-
     const OBJECT_DETECTED_DISTANCE = 20
     let DEFAULT_SPEED = 50;
 
-    export let EXPANDER_ADRESS = 85;
+
     /**
      * The function does nothing.
      * @param arg input argument 
@@ -36,7 +29,18 @@ namespace Robotrix {
     export function templateFunction(arg: String): void {
     }
 
-
+    /**
+    * The function does nothing.
+    * @param arg input argument 
+    */
+    //% subcategory="Test"
+    //% blockId="robotrix_set_board_version"
+    //% block="set HW version $v"
+    //% block.loc.cs="nastav HW verzi $v"
+    //% weight=80
+    export function setBoardVersion(v: BoardVersion): void {
+        RobotrixHWVersion = v;
+    }
 
     // Basic functions 
 
@@ -63,12 +67,27 @@ namespace Robotrix {
      */
     //% blockId="robotrix_ultrasonic_detected"
     //% block="object is detected in $direction"
-    //% block.loc.cs="je překážka detekována ve směru | $direction"
+    //% block.loc.cs="překážka je detekována ve směru | $direction"
     //% group="Detekce"
     //% weight=50
     export function isObjectDetected(direction: SonarDirections): boolean {
         if (getUltrasonicDistance(direction) < OBJECT_DETECTED_DISTANCE) return true;
         else return false;
+    }
+
+    /**
+     * 
+     * @param direction where we want to detect object
+     * @returns `true` if object is not detected in OBJECT_DETECTED_DISTANCE range. `false` otherwise
+     */
+    //% blockId="robotrix_ultrasonic_not_detected"
+    //% block="object is not detected in $direction"
+    //% block.loc.cs="není detekována překážka ve směru $direction"
+    //% group="Detekce"
+    //% weight=51
+    export function isNotObjectDetected(direction: SonarDirections): boolean {
+        if (getUltrasonicDistance(direction) < OBJECT_DETECTED_DISTANCE) return false;
+        else return true;
     }
 
     /**
@@ -80,11 +99,8 @@ namespace Robotrix {
     //% block.loc.cs="Začni se pohybovat ve směru $direction"
     //% group="Pohyb"
     //% weight=60
-    //% direction.fieldEditor="gridpicker"
-    //% direction.fieldOptions.width=220
-    //% direction.fieldOptions.columns=3
-    export function startMoving(direction: CarMoveDirections) {
-        moveInDirection(direction, DEFAULT_SPEED);
+    export function startMoving(direction: directions2) {
+        carMoveSimple(direction, DEFAULT_SPEED);
     }
 
     /**
