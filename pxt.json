@@ -23,6 +23,7 @@
         "main.py",
         "sim/rled.json",
         "sim/rled.png"
+        "rover.ts"
     ],
     "testFiles": [
         "test.ts"
