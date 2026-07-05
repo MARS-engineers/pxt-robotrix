@@ -93,7 +93,7 @@ namespace Robotrix {
             });
         }
 
-        sendDataToSonar("0xff");
+                sendDataToSonar(255);
 
         pins.onPulsed(SONAR_ECHO_PIN, PulseValue.High, () => {
             if (
@@ -248,16 +248,17 @@ namespace Robotrix {
         // Reset trigger pin
         //pins.setPull(ultrasonicState.trig, PinPullMode.PullNone);
         //pins.digitalWritePin(ultrasonicState.trig, 0);
-        sendDataToSonar("0x00");
+        sendDataToSonar(0);
 
         control.waitMicros(2);
 
         // Trigger pulse
         //pins.digitalWritePin(ultrasonicState.trig, 1);
         let a = 1 << sonar;
-        sendDataToSonarDec(a);
+        sendDataToSonar(a);
         control.waitMicros(10);
-        sendDataToSonar("0x00");
+        sendDataToSonar(0);
+
         //pins.digitalWritePin(ultrasonicState.trig, 0);
     }
 
@@ -316,8 +317,7 @@ namespace Robotrix {
                         ultrasonicState[_currentSonar].travelTimeObservers[i] = -threshold;
                     }
                 }
-                //sonars[_currentSonar] = ultrasonicState.medianRoundTrip;
-
+                
                 ultrasonicState[_currentSonar].distanceCM = Math.idiv(ultrasonicState[_currentSonar].medianRoundTrip, DistanceUnit.CM)
 
                 triggerPulse(_currentSonar);
@@ -329,16 +329,7 @@ namespace Robotrix {
         }
     }
 
-    export function sendDataToSonar(input: string) {
-        pins.i2cWriteNumber(
-            0x20,
-            Math.trunc(parseInt(input)),
-            NumberFormat.UInt32LE,
-            false
-        )
-    }
-
-    export function sendDataToSonarDec(input: number) {
+    export function sendDataToSonar(input: number) {
         pins.i2cWriteNumber(
             0x20,
             input,
