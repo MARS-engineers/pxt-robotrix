@@ -108,6 +108,18 @@ namespace Robotrix {
         });
 
         control.inBackground(measureInBackground);
+
+    /**
+     * Disables the ultrasonic distance sensors
+     */
+    //% subcategory="Ultrasonic"
+    //% blockId="robotrix_ultrasonic_disable"
+    //% block="turn off ultrasonic distance sensors"
+    //% block.loc.cs="Vypni ultrazvukové senzory"
+    //% weight=80
+    export function disableUltrasonicDistanceSensor(): void {
+                sendDataToSonar(255);
+                scanning = false;
     }
 
 
