@@ -60,6 +60,7 @@ namespace Robotrix {
 
 
     let ULTRASONIC_MEASUREMENTS = 3;
+    let ULTRASONIC_MEASUREMENTS = 8;
     let _currentSonar = 0;
 
 
@@ -77,6 +78,7 @@ namespace Robotrix {
     let ultrasonicState: UltrasonicDevice[] = [];
 
     const TIME_BETWEEN_PULSE_MS = 5;
+    const TIME_BETWEEN_PULSE_MS = 10;
 
     /**
      * Configures the ultrasonic distance sensor and measures continuously in the background.
@@ -334,7 +336,7 @@ namespace Robotrix {
     export function sendDataToSonar(input: string) {
         pins.i2cWriteNumber(
             0x20,
-            stringToInt(input),
+            Math.trunc(parseInt(input)),
             NumberFormat.UInt32LE,
             false
         )
