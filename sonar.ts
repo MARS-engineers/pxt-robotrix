@@ -49,17 +49,14 @@ namespace Robotrix {
         PRECISION
     };
     let SonarMode = SonarModes.NORMAL;
-
     let scanning = false;
     let SONAR_ECHO_PIN = RPtoPin(RobotrixPins.SONAR_IRQ);
     const SONARS_N = 6;
     const MICROBIT_MAKERBIT_ULTRASONIC_OBJECT_DETECTED_ID = 798;
-    const MAX_ULTRASONIC_TRAVEL_TIME = 300 * DistanceUnit.CM;
     const MAX_DISTANCE = 300;
     const MAX_ULTRASONIC_TRAVEL_TIME = MAX_DISTANCE * DistanceUnit.CM;
 
 
-    let ULTRASONIC_MEASUREMENTS = 3;
     let ULTRASONIC_MEASUREMENTS = 8;
     let _currentSonar = 0;
 
@@ -77,7 +74,6 @@ namespace Robotrix {
     }
     let ultrasonicState: UltrasonicDevice[] = [];
 
-    const TIME_BETWEEN_PULSE_MS = 5;
     const TIME_BETWEEN_PULSE_MS = 10;
 
     /**
