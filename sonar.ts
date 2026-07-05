@@ -54,6 +54,8 @@ namespace Robotrix {
     const SONARS_N = 6;
     const MICROBIT_MAKERBIT_ULTRASONIC_OBJECT_DETECTED_ID = 798;
     const MAX_ULTRASONIC_TRAVEL_TIME = 300 * DistanceUnit.CM;
+    const MAX_DISTANCE = 300;
+    const MAX_ULTRASONIC_TRAVEL_TIME = MAX_DISTANCE * DistanceUnit.CM;
 
 
     let ULTRASONIC_MEASUREMENTS = 3;
@@ -69,6 +71,7 @@ namespace Robotrix {
         roundTrips: UltrasonicRoundTrip[];
         medianRoundTrip: number;
         travelTimeObservers: number[];
+        distanceCM: number;
     }
     let ultrasonicState: UltrasonicDevice[] = [];
 
@@ -162,6 +165,7 @@ namespace Robotrix {
                 roundTrips: [{ ts: 0, rtt: MAX_ULTRASONIC_TRAVEL_TIME }],
                 medianRoundTrip: MAX_ULTRASONIC_TRAVEL_TIME,
                 travelTimeObservers: [],
+                distanceCM: MAX_DISTANCE
             };
         }
 
@@ -193,7 +197,7 @@ namespace Robotrix {
             return -1;
         }
         basic.pause(0); // yield to allow background processing when called in a tight loop
-        return Math.idiv(ultrasonicState[direction].medianRoundTrip, DistanceUnit.CM);
+        return ultrasonicState[direction].distanceCM;
     }
 
     /**
@@ -213,7 +217,7 @@ namespace Robotrix {
         basic.pause(0); // yield to allow background processing when called in a tight loop
         let a = "";
         for (let i = 0; i < SONARS_N; i++) {
-            a += Math.idiv(ultrasonicState[i].medianRoundTrip, DistanceUnit.CM);
+            a += ultrasonicState[i].distanceCM;
             a += ", ";
         }
         return a;
@@ -238,7 +242,7 @@ namespace Robotrix {
             return false;
         }
         basic.pause(0); // yield to allow background processing when called in a tight loop
-        return Math.idiv(ultrasonicState[direction].medianRoundTrip, DistanceUnit.CM) < distance;
+        return ultrasonicState[direction].distanceCM < distance;
     }
 
 
@@ -322,6 +326,7 @@ namespace Robotrix {
                 }
                 //sonars[_currentSonar] = ultrasonicState.medianRoundTrip;
 
+                ultrasonicState[_currentSonar].distanceCM = Math.idiv(ultrasonicState[_currentSonar].medianRoundTrip, DistanceUnit.CM)
 
                 triggerPulse(_currentSonar);
 
