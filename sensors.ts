@@ -16,6 +16,8 @@ namespace Robotrix {
     let bme688InitialiseFlag = false
     let gasInitialise = false
 
+
+
     // Initialise the BME688, establishing communication, entering initial T, P & H oversampling rates, setup filter and do a first data reading (won't return gas)
     export function bme688Init(): void {
         kitronik_BME688.initialise()    // Call BME688 setup function in bme688-base extension
@@ -214,4 +216,7 @@ namespace Robotrix {
 
         return kitronik_BME688.iaqScore
     }
+
 }
+
+
