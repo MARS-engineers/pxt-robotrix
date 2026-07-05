@@ -20,6 +20,20 @@ namespace Robotrix {
     }
     export let RobotrixFWVersion = FirwareVersion.V01;
 
+    export enum TelemetryTransportTypes {
+        UART,
+        I2C
+    }
+
+    export let sendTelemetryUsing = TelemetryTransportTypes.UART;
+
+    export enum SonarConnectedToTypes {
+        MainBoard,
+        MicroBit
+    }
+
+    export let SonarConnectedTo = SonarConnectedToTypes.MainBoard;
+
     const OBJECT_DETECTED_DISTANCE = 20
     let DEFAULT_SPEED = 50;
 

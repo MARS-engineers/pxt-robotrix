@@ -23,6 +23,48 @@ namespace Robotrix {
     //% weight=80
     export function setBoardVersion(v: BoardVersion): void {
         RobotrixHWVersion = v;
+
+        // Set defaults for board
+        switch (v) {
+            case BoardVersion.V01:
+                setComunicationType(TelemetryTransportTypes.I2C);
+                setSonarsConnection(SonarConnectedToTypes.MicroBit);
+                
+            case BoardVersion.V02:
+                setComunicationType(TelemetryTransportTypes.UART);
+                setSonarsConnection(SonarConnectedToTypes.MainBoard);
+
+            default:
+                setComunicationType(TelemetryTransportTypes.UART);
+                setSonarsConnection(SonarConnectedToTypes.MicroBit);
+
+        }
+    }
+
+    /**
+     * Set Communication type
+     * @param type type of communication eq. UART
+     */
+    //% subcategory="Settings"
+    //% blockId="robotrix_set_comm"
+    //% block="set communication type $type"
+    //% block.loc.cs="nastav styl komunikace na $type"
+    //% weight=75
+    export function setComunicationType(type: TelemetryTransportTypes): void {
+        sendTelemetryUsing = type;
+    }
+
+    /**
+     * Set where are connected sonars
+     * @param conn type of communication eq. MainBoard
+     */
+    //% subcategory="Settings"
+    //% blockId="robotrix_set_sonar_con"
+    //% block="set sonar connected to $conn"
+    //% block.loc.cs="nastav sonary připojeny na $conn"
+    //% weight=74
+    export function setSonarsConnection(conn: SonarConnectedToTypes): void {
+        SonarConnectedTo = conn;
     }
 
     /**
@@ -107,4 +149,6 @@ namespace Robotrix {
         }
         return text;
     }
+
+
 }
