@@ -50,6 +50,7 @@ namespace Robotrix {
     };
     let SonarMode = SonarModes.NORMAL;
 
+    let scanning = false;
     let SONAR_ECHO_PIN = RPtoPin(RobotrixPins.SONAR_IRQ);
     const SONARS_N = 6;
     const MICROBIT_MAKERBIT_ULTRASONIC_OBJECT_DETECTED_ID = 798;
@@ -245,13 +246,6 @@ namespace Robotrix {
         return ultrasonicState[direction].distanceCM < distance;
     }
 
-
-
-
-
-
-
-
     function triggerPulse(sonar: number) {
         // Reset trigger pin
         //pins.setPull(ultrasonicState.trig, PinPullMode.PullNone);
@@ -285,7 +279,7 @@ namespace Robotrix {
     function measureInBackground() {
         _currentSonar = 0;
 
-        while (true) {
+        while (scanning) {
             const trips = ultrasonicState[_currentSonar].roundTrips;
             for (let trip = 0; trip < ULTRASONIC_MEASUREMENTS; trip++) {
 
