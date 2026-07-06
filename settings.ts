@@ -21,7 +21,6 @@ namespace Robotrix {
     //% blockId="robotrix_set_board_version"
     //% block="set HW version $v"
     //% block.loc.cs="nastav HW verzi $v"
-    //% deprecated=true
     //% weight=80
     export function setBoardVersion(v: BoardVersion): void {
         RobotrixHWVersion = v;
