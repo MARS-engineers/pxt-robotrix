@@ -38,6 +38,7 @@ namespace Robotrix {
     let DEFAULT_SPEED = 50;
 
     export let EXPANDER_ADRESS = 85;
+
     /**
      * The function does nothing.
      * @param arg input argument 
@@ -46,6 +47,7 @@ namespace Robotrix {
     //% blockId="robotrix_template_function"
     //% block="template function $arg"
     //% block.loc.cs="zkušební funkce $arg"
+    //% deprecated=true
     //% weight=80
     export function templateFunction(arg: String): void {
     }
