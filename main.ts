@@ -39,6 +39,15 @@ namespace Robotrix {
 
     export let EXPANDER_ADRESS = 85;
 
+
+    export let telemetry = {
+        sonars: [0, 0, 0, 0, 0, 0, 0, 0],
+        batteryVoltage: 0,
+        current: 0,
+        batteryRemaining: 0,
+        roverArmed: false
+    };
+
     /**
      * The function does nothing.
      * @param arg input argument 
@@ -66,11 +75,8 @@ namespace Robotrix {
     export function TurnOnCar() {
         connectUltrasonicDistanceSensor();
         setupGasSensor();
-        powerInit();
         enableMotors();
     }
-
-
 
 
     /**
