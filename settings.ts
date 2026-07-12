@@ -28,31 +28,15 @@ namespace Robotrix {
         // Set defaults for board
         switch (v) {
             case BoardVersion.V01:
-                setComunicationType(TelemetryTransportTypes.I2C);
                 setSonarsConnection(SonarConnectedToTypes.MicroBit);
 
             case BoardVersion.V02:
-                setComunicationType(TelemetryTransportTypes.UART);
                 setSonarsConnection(SonarConnectedToTypes.MainBoard);
 
             default:
-                setComunicationType(TelemetryTransportTypes.UART);
                 setSonarsConnection(SonarConnectedToTypes.MicroBit);
 
         }
-    }
-
-    /**
-     * Set Communication type
-     * @param type type of communication eq. UART
-     */
-    //% subcategory="Settings"
-    //% blockId="robotrix_set_comm"
-    //% block="set communication type $type"
-    //% block.loc.cs="nastav styl komunikace na $type"
-    //% weight=75
-    export function setComunicationType(type: TelemetryTransportTypes): void {
-        sendTelemetryUsing = type;
     }
 
     /**
