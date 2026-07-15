@@ -150,6 +150,7 @@ namespace Robotrix {
         //% led.defl=led
         //% weight=85 blockGap=8
         //% parts=led
+        //% deprecated=true
         turnOnLED() {
             basic.showNumber(this.address)
         }
@@ -163,6 +164,7 @@ namespace Robotrix {
         //% led.defl=led
         //% weight=85 blockGap=8
         //% parts=led
+        //% deprecated=true
         turnOffLED() {
             basic.showNumber(0)
         }
@@ -179,6 +181,7 @@ namespace Robotrix {
     //% subcategory="Test"
     //% block="test modules $modules"
     //% block.loc.cs="otestovat moduly $modules"
+    //% deprecated=true
     export function test(modules: ModuleType): void {
         basic.showNumber(modules)
     }
@@ -193,6 +196,7 @@ namespace Robotrix {
     //% weight=90 blockGap=8
     //% blockSetVariable=led
     //% parts=led
+    //% deprecated=true
     export function createLED(address: number): RLed {
         let led = new RLed();
         led.setAddress(address);

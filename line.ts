@@ -38,6 +38,7 @@ namespace Robotrix {
     //% blockId="robotrix_line_setup"
     //% block="Setup line sensor at pins | Left1 $L1 Left2 $L2 Middle $M Right1 $R1 Right2 $R2"
     //% block.loc.cs="Nastav senzor čáry na piny | Levá1 $L1 Levá2 $L2 Uprostřed $M Pravá1 $R1 Pravá2 $R2"
+    //% deprecated=true
     //% weight=80
     export function setupLine(L1?: RobotrixPins, L2?: RobotrixPins, M?: RobotrixPins, R1?: RobotrixPins, R2?: RobotrixPins): void {
         pin_L1 = L1;
@@ -54,6 +55,7 @@ namespace Robotrix {
     //% blockId="robotrix_line_is_detected"
     //% block="Is line detected in direction %direction"
     //% block.loc.cs="Je čára detekována ve směru %direction"
+    //% deprecated=true
     //% weight=80
     export function isLineDetected(direction: lineDirection): Boolean {
         switch (direction) {

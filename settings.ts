@@ -51,6 +51,7 @@ namespace Robotrix {
     //% blockId="robotrix_set_sonar_con"
     //% block="set sonar connected to $conn"
     //% block.loc.cs="nastav sonary připojeny na $conn"
+    //% deprecated=true
     //% weight=74
     export function setSonarsConnection(conn: SonarConnectedToTypes): void {
         SonarConnectedTo = conn;

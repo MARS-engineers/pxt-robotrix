@@ -17,7 +17,6 @@
         "pins.ts",
         "sensors.ts",
         "settings.ts",
-        "leds.ts",
         "line.ts",
         "README.md",
         "main.py",
