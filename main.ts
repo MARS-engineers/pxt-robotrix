@@ -72,6 +72,7 @@ namespace Robotrix {
     //% blockId="robotrix_turn_on_car"
     //% block="Turn on car"
     //% block.loc.cs="Nastartuj auto"
+    //% deprecated=true
     //% weight=1000
     export function TurnOnCar() {
         connectUltrasonicDistanceSensor();
