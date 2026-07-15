@@ -39,6 +39,7 @@ namespace Robotrix {
 
     export let EXPANDER_ADRESS = 85;
 
+    setBoardVersion(BoardVersion.V02);
 
     export let telemetry = {
         sonars: [0, 0, 0, 0, 0, 0, 0, 0],

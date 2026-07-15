@@ -85,29 +85,38 @@ namespace Robotrix {
     //% block.loc.cs="Zapni ultrazvukové senzory"
     //% weight=80
     export function connectUltrasonicDistanceSensor(): void {
-        for (let i = 0; i < SONARS_N; i++) {
-            ultrasonicState.push({
-                roundTrips: [{ ts: 0, rtt: MAX_ULTRASONIC_TRAVEL_TIME }],
-                medianRoundTrip: MAX_ULTRASONIC_TRAVEL_TIME,
-                travelTimeObservers: [],
-            });
-        }
+        switch (SonarConnectedTo) {
+            case SonarConnectedToTypes.MicroBit:
+                for (let i = 0; i < SONARS_N; i++) {
+                    ultrasonicState.push({
+                        roundTrips: [{ ts: 0, rtt: MAX_ULTRASONIC_TRAVEL_TIME }],
+                        medianRoundTrip: MAX_ULTRASONIC_TRAVEL_TIME,
+                        travelTimeObservers: [],
+                        distanceCM: MAX_DISTANCE
+                    });
+                }
 
                 sendDataToSonar(255);
 
-        pins.onPulsed(SONAR_ECHO_PIN, PulseValue.High, () => {
-            if (
-                pins.pulseDuration() < MAX_ULTRASONIC_TRAVEL_TIME &&
-                ultrasonicState[_currentSonar].roundTrips.length <= ULTRASONIC_MEASUREMENTS
-            ) {
-                ultrasonicState[_currentSonar].roundTrips.push({
-                    ts: input.runningTime(),
-                    rtt: pins.pulseDuration(),
+                pins.onPulsed(SONAR_ECHO_PIN, PulseValue.High, () => {
+                    if (!scanning) return;
+                    if (
+                        pins.pulseDuration() < MAX_ULTRASONIC_TRAVEL_TIME &&
+                        ultrasonicState[_currentSonar].roundTrips.length <= ULTRASONIC_MEASUREMENTS
+                    ) {
+                        ultrasonicState[_currentSonar].roundTrips.push({
+                            ts: input.runningTime(),
+                            rtt: pins.pulseDuration(),
+                        });
+                    }
                 });
-            }
-        });
+                scanning = true;
+                control.inBackground(measureInBackground);
+            case SonarConnectedToTypes.MainBoard:
 
-        control.inBackground(measureInBackground);
+        }
+
+    }
 
     /**
      * Disables the ultrasonic distance sensors
@@ -118,8 +127,12 @@ namespace Robotrix {
     //% block.loc.cs="Vypni ultrazvukové senzory"
     //% weight=80
     export function disableUltrasonicDistanceSensor(): void {
+        switch (SonarConnectedTo) {
+            case SonarConnectedToTypes.MicroBit:
                 sendDataToSonar(255);
                 scanning = false;
+            case SonarConnectedToTypes.MainBoard:
+        }
     }
 
 
@@ -148,6 +161,11 @@ namespace Robotrix {
                 break;
             default:
                 break;
+        }
+        switch (SonarConnectedTo) {
+            case SonarConnectedToTypes.MicroBit:
+
+            case SonarConnectedToTypes.MainBoard:
         }
     }
 
@@ -208,7 +226,7 @@ namespace Robotrix {
             return -1;
         }
         basic.pause(0); // yield to allow background processing when called in a tight loop
-        return ultrasonicState[direction].distanceCM;
+        return telemetry.sonars[direction];
     }
 
     /**
@@ -228,7 +246,7 @@ namespace Robotrix {
         basic.pause(0); // yield to allow background processing when called in a tight loop
         let a = "";
         for (let i = 0; i < SONARS_N; i++) {
-            a += ultrasonicState[i].distanceCM;
+            a += telemetry.sonars[i];
             a += ", ";
         }
         return a;
@@ -253,7 +271,7 @@ namespace Robotrix {
             return false;
         }
         basic.pause(0); // yield to allow background processing when called in a tight loop
-        return ultrasonicState[direction].distanceCM < distance;
+        return telemetry.sonars[direction] < distance;
     }
 
     function triggerPulse(sonar: number) {
@@ -331,7 +349,7 @@ namespace Robotrix {
                 }
                 
                 ultrasonicState[_currentSonar].distanceCM = Math.idiv(ultrasonicState[_currentSonar].medianRoundTrip, DistanceUnit.CM)
-
+                telemetry.sonars[_currentSonar] = ultrasonicState[_currentSonar].distanceCM;
                 triggerPulse(_currentSonar);
 
                 basic.pause(TIME_BETWEEN_PULSE_MS);

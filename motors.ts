@@ -35,6 +35,14 @@ namespace Robotrix {
 
         //% block="Diagonal backward right"
         //% block.loc.cs="Diagonálně vzad vpravo"
+        ROTATE_LEFT = 9,
+
+        //% block="Otoč se doprava"
+        //% block.loc.cs="Turn right"
+        ROTATE_RIGHT = 0x0A,
+
+        //% block="Otoč se doleva"
+        //% block.loc.cs="Turn left"
         DIAG_BACK_RIGHT = 8,
     }
 

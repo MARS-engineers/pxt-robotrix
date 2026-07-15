@@ -32,6 +32,10 @@ namespace Robotrix {
 
             case BoardVersion.V02:
                 setSonarsConnection(SonarConnectedToTypes.MainBoard);
+                serial.redirect(
+                    SerialPin.P15,
+                    SerialPin.P16,
+                    BaudRate.BaudRate115200)
 
             default:
                 setSonarsConnection(SonarConnectedToTypes.MicroBit);
