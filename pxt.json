@@ -22,7 +22,8 @@
         "README.md",
         "main.py",
         "sim/rled.json",
-        "sim/rled.png"
+        "sim/rled.png",
+        "telemetry.ts"
     ],
     "testFiles": [
         "test.ts"

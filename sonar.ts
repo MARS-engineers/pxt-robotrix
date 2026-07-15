@@ -49,14 +49,15 @@ namespace Robotrix {
         PRECISION
     };
     let SonarMode = SonarModes.NORMAL;
-
+    let scanning = false;
     let SONAR_ECHO_PIN = RPtoPin(RobotrixPins.SONAR_IRQ);
     const SONARS_N = 6;
     const MICROBIT_MAKERBIT_ULTRASONIC_OBJECT_DETECTED_ID = 798;
-    const MAX_ULTRASONIC_TRAVEL_TIME = 300 * DistanceUnit.CM;
+    const MAX_DISTANCE = 300;
+    const MAX_ULTRASONIC_TRAVEL_TIME = MAX_DISTANCE * DistanceUnit.CM;
 
 
-    let ULTRASONIC_MEASUREMENTS = 3;
+    let ULTRASONIC_MEASUREMENTS = 8;
     let _currentSonar = 0;
 
 
@@ -69,10 +70,11 @@ namespace Robotrix {
         roundTrips: UltrasonicRoundTrip[];
         medianRoundTrip: number;
         travelTimeObservers: number[];
+        distanceCM: number;
     }
     let ultrasonicState: UltrasonicDevice[] = [];
 
-    const TIME_BETWEEN_PULSE_MS = 5;
+    const TIME_BETWEEN_PULSE_MS = 10;
 
     /**
      * Configures the ultrasonic distance sensor and measures continuously in the background.
@@ -83,29 +85,54 @@ namespace Robotrix {
     //% block.loc.cs="Zapni ultrazvukové senzory"
     //% weight=80
     export function connectUltrasonicDistanceSensor(): void {
-        for (let i = 0; i < SONARS_N; i++) {
-            ultrasonicState.push({
-                roundTrips: [{ ts: 0, rtt: MAX_ULTRASONIC_TRAVEL_TIME }],
-                medianRoundTrip: MAX_ULTRASONIC_TRAVEL_TIME,
-                travelTimeObservers: [],
-            });
+        switch (SonarConnectedTo) {
+            case SonarConnectedToTypes.MicroBit:
+                for (let i = 0; i < SONARS_N; i++) {
+                    ultrasonicState.push({
+                        roundTrips: [{ ts: 0, rtt: MAX_ULTRASONIC_TRAVEL_TIME }],
+                        medianRoundTrip: MAX_ULTRASONIC_TRAVEL_TIME,
+                        travelTimeObservers: [],
+                        distanceCM: MAX_DISTANCE
+                    });
+                }
+
+                sendDataToSonar(255);
+
+                pins.onPulsed(SONAR_ECHO_PIN, PulseValue.High, () => {
+                    if (!scanning) return;
+                    if (
+                        pins.pulseDuration() < MAX_ULTRASONIC_TRAVEL_TIME &&
+                        ultrasonicState[_currentSonar].roundTrips.length <= ULTRASONIC_MEASUREMENTS
+                    ) {
+                        ultrasonicState[_currentSonar].roundTrips.push({
+                            ts: input.runningTime(),
+                            rtt: pins.pulseDuration(),
+                        });
+                    }
+                });
+                scanning = true;
+                control.inBackground(measureInBackground);
+            case SonarConnectedToTypes.MainBoard:
+
         }
 
-        sendDataToSonar("0xff");
+    }
 
-        pins.onPulsed(SONAR_ECHO_PIN, PulseValue.High, () => {
-            if (
-                pins.pulseDuration() < MAX_ULTRASONIC_TRAVEL_TIME &&
-                ultrasonicState[_currentSonar].roundTrips.length <= ULTRASONIC_MEASUREMENTS
-            ) {
-                ultrasonicState[_currentSonar].roundTrips.push({
-                    ts: input.runningTime(),
-                    rtt: pins.pulseDuration(),
-                });
-            }
-        });
-
-        control.inBackground(measureInBackground);
+    /**
+     * Disables the ultrasonic distance sensors
+     */
+    //% subcategory="Ultrasonic"
+    //% blockId="robotrix_ultrasonic_disable"
+    //% block="turn off ultrasonic distance sensors"
+    //% block.loc.cs="Vypni ultrazvukové senzory"
+    //% weight=80
+    export function disableUltrasonicDistanceSensor(): void {
+        switch (SonarConnectedTo) {
+            case SonarConnectedToTypes.MicroBit:
+                sendDataToSonar(255);
+                scanning = false;
+            case SonarConnectedToTypes.MainBoard:
+        }
     }
 
 
@@ -135,6 +162,11 @@ namespace Robotrix {
             default:
                 break;
         }
+        switch (SonarConnectedTo) {
+            case SonarConnectedToTypes.MicroBit:
+
+            case SonarConnectedToTypes.MainBoard:
+        }
     }
 
     /**
@@ -162,6 +194,7 @@ namespace Robotrix {
                 roundTrips: [{ ts: 0, rtt: MAX_ULTRASONIC_TRAVEL_TIME }],
                 medianRoundTrip: MAX_ULTRASONIC_TRAVEL_TIME,
                 travelTimeObservers: [],
+                distanceCM: MAX_DISTANCE
             };
         }
 
@@ -193,7 +226,7 @@ namespace Robotrix {
             return -1;
         }
         basic.pause(0); // yield to allow background processing when called in a tight loop
-        return Math.idiv(ultrasonicState[direction].medianRoundTrip, DistanceUnit.CM);
+        return telemetry.sonars[direction];
     }
 
     /**
@@ -213,7 +246,7 @@ namespace Robotrix {
         basic.pause(0); // yield to allow background processing when called in a tight loop
         let a = "";
         for (let i = 0; i < SONARS_N; i++) {
-            a += Math.idiv(ultrasonicState[i].medianRoundTrip, DistanceUnit.CM);
+            a += telemetry.sonars[i];
             a += ", ";
         }
         return a;
@@ -238,30 +271,24 @@ namespace Robotrix {
             return false;
         }
         basic.pause(0); // yield to allow background processing when called in a tight loop
-        return Math.idiv(ultrasonicState[direction].medianRoundTrip, DistanceUnit.CM) < distance;
+        return telemetry.sonars[direction] < distance;
     }
-
-
-
-
-
-
-
 
     function triggerPulse(sonar: number) {
         // Reset trigger pin
         //pins.setPull(ultrasonicState.trig, PinPullMode.PullNone);
         //pins.digitalWritePin(ultrasonicState.trig, 0);
-        sendDataToSonar("0x00");
+        sendDataToSonar(0);
 
         control.waitMicros(2);
 
         // Trigger pulse
         //pins.digitalWritePin(ultrasonicState.trig, 1);
         let a = 1 << sonar;
-        sendDataToSonarDec(a);
+        sendDataToSonar(a);
         control.waitMicros(10);
-        sendDataToSonar("0x00");
+        sendDataToSonar(0);
+
         //pins.digitalWritePin(ultrasonicState.trig, 0);
     }
 
@@ -281,7 +308,7 @@ namespace Robotrix {
     function measureInBackground() {
         _currentSonar = 0;
 
-        while (true) {
+        while (scanning) {
             const trips = ultrasonicState[_currentSonar].roundTrips;
             for (let trip = 0; trip < ULTRASONIC_MEASUREMENTS; trip++) {
 
@@ -320,9 +347,9 @@ namespace Robotrix {
                         ultrasonicState[_currentSonar].travelTimeObservers[i] = -threshold;
                     }
                 }
-                //sonars[_currentSonar] = ultrasonicState.medianRoundTrip;
-
-
+                
+                ultrasonicState[_currentSonar].distanceCM = Math.idiv(ultrasonicState[_currentSonar].medianRoundTrip, DistanceUnit.CM)
+                telemetry.sonars[_currentSonar] = ultrasonicState[_currentSonar].distanceCM;
                 triggerPulse(_currentSonar);
 
                 basic.pause(TIME_BETWEEN_PULSE_MS);
@@ -332,16 +359,7 @@ namespace Robotrix {
         }
     }
 
-    export function sendDataToSonar(input: string) {
-        pins.i2cWriteNumber(
-            0x20,
-            stringToInt(input),
-            NumberFormat.UInt32LE,
-            false
-        )
-    }
-
-    export function sendDataToSonarDec(input: number) {
+    export function sendDataToSonar(input: number) {
         pins.i2cWriteNumber(
             0x20,
             input,

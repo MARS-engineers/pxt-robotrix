@@ -20,10 +20,35 @@ namespace Robotrix {
     }
     export let RobotrixFWVersion = FirwareVersion.V01;
 
+    export enum TelemetryTransportTypes {
+        UART,
+        I2C
+    }
+
+    export let sendTelemetryUsing = TelemetryTransportTypes.UART;
+
+    export enum SonarConnectedToTypes {
+        MainBoard,
+        MicroBit
+    }
+
+    export let SonarConnectedTo = SonarConnectedToTypes.MainBoard;
+
     const OBJECT_DETECTED_DISTANCE = 20
     let DEFAULT_SPEED = 50;
 
     export let EXPANDER_ADRESS = 85;
+
+    setBoardVersion(BoardVersion.V02);
+
+    export let telemetry = {
+        sonars: [0, 0, 0, 0, 0, 0, 0, 0],
+        batteryVoltage: 0,
+        current: 0,
+        batteryRemaining: 0,
+        roverArmed: false
+    };
+
     /**
      * The function does nothing.
      * @param arg input argument 
@@ -32,6 +57,7 @@ namespace Robotrix {
     //% blockId="robotrix_template_function"
     //% block="template function $arg"
     //% block.loc.cs="zkušební funkce $arg"
+    //% deprecated=true
     //% weight=80
     export function templateFunction(arg: String): void {
     }
@@ -48,12 +74,10 @@ namespace Robotrix {
     //% block.loc.cs="Nastartuj auto"
     //% weight=1000
     export function TurnOnCar() {
-        enableMotors();
         connectUltrasonicDistanceSensor();
         setupGasSensor();
+        enableMotors();
     }
-
-
 
 
     /**
@@ -100,43 +124,6 @@ namespace Robotrix {
     export function setSpeed(speed: number) {
         DEFAULT_SPEED = speed;
     }
-
-    /* OLD  */
-    export enum directions_old {
-        STOP = "00",
-        FORWARD = "01",
-        BACKWARD = "02",
-        LEFT_SLIDE = "03",
-        RIGHT_SLIDE = "04",
-        ROTATE_CLOCKWISE = "05",
-        ROTATE_COUNTER_CLOCKWISE = "06",
-        TURN_LEFT_F = "07",
-        TURN_RIGHT_F = "08",
-        TURN_LEFT_B = "09",
-        TURN_RIGHT_B = "0A",
-        ROT_POINT_LEFT_F = "0B",
-        ROT_POINT_RIGHT_F = "0C",
-        ROT_POINT_LEFT_B = "0D",
-        ROT_POINT_RIGHT_B = "0E",
-        SLIDE_DIAG_LEFT_F = "0F",
-        SLIDE_DIAG_RIGHT_F = "10",
-        SLIDE_DIAG_LEFT_B = "11",
-        SLIDE_DIAG_RIGHT_B = "12",
-    };
-
-    //% subcategory="Test"
-    //% blockId=robotrix_expander_move_old
-    //% block="old|move|in|direction $d at|speed $speed"
-    export function carMoveSimpleOld(direction: directions_old, speed: string = "A0"): void {  // TO-DO change speed from hex value to dec int 0-255/0-100%
-        let a = direction as string;
-        if (a.length < 2) {
-            a = "0" + a;
-        }
-        sendDataToExpander("0x" + "20" + a + speed + "00");
-    }
-
-
-
 
     export enum ModuleType {
         //% block="All"

@@ -8,8 +8,9 @@ namespace Robotrix {
     //% block.loc.cs="restartuj desku"
     //% weight=80
     export function restartBoard(): void {
-        if (RobotrixFWVersion <= FirwareVersion.V01) console.log("This function is only fupported in FW >0.2!");
-        pins.i2cWriteNumber(EXPANDER_ADRESS, Math.trunc(parseInt("0x02010000")), NumberFormat.UInt32BE, false);
+        let b = pins.createBuffer(1);
+        b.setUint8(0, 0x01);
+        sendTelemetry(b, 0x02);
     }
 
     /**
@@ -23,6 +24,36 @@ namespace Robotrix {
     //% weight=80
     export function setBoardVersion(v: BoardVersion): void {
         RobotrixHWVersion = v;
+
+        // Set defaults for board
+        switch (v) {
+            case BoardVersion.V01:
+                setSonarsConnection(SonarConnectedToTypes.MicroBit);
+
+            case BoardVersion.V02:
+                setSonarsConnection(SonarConnectedToTypes.MainBoard);
+                serial.redirect(
+                    SerialPin.P15,
+                    SerialPin.P16,
+                    BaudRate.BaudRate115200)
+
+            default:
+                setSonarsConnection(SonarConnectedToTypes.MicroBit);
+
+        }
+    }
+
+    /**
+     * Set where are connected sonars
+     * @param conn type of communication eq. MainBoard
+     */
+    //% subcategory="Settings"
+    //% blockId="robotrix_set_sonar_con"
+    //% block="set sonar connected to $conn"
+    //% block.loc.cs="nastav sonary připojeny na $conn"
+    //% weight=74
+    export function setSonarsConnection(conn: SonarConnectedToTypes): void {
+        SonarConnectedTo = conn;
     }
 
     /**
@@ -33,6 +64,7 @@ namespace Robotrix {
     //% blockId="robotrix_set_firmware_version"
     //% block="set FW version $v"
     //% block.loc.cs="nastav FW verzi $v"
+    //% deprecated=true
     //% weight=70
     export function setFirmwareVersion(v: FirwareVersion): void {
         RobotrixFWVersion = v;
@@ -46,16 +78,10 @@ namespace Robotrix {
     //% blockId="robotrix_get_firmware_version"
     //% block="get FW version"
     //% block.loc.cs="přečti FW verzi"
+    //% deprecated=true
     //% weight=60
     export function getFirmwareVersion(): string {
-        if (RobotrixFWVersion <= FirwareVersion.V01) {
-            console.log("This function is only fupported in FW >0.2!");
-            return "NaN";
-        }
-        pins.i2cWriteNumber(EXPANDER_ADRESS, Math.trunc(parseInt("0x03010000")), NumberFormat.UInt32BE, false);
-
-        let buf = pins.i2cReadBuffer(EXPANDER_ADRESS, 6, false) // čti 6 bajtů
-        return convertBytesToString(buf);
+        return "";
     }
 
     /**
@@ -66,16 +92,10 @@ namespace Robotrix {
     //% blockId="robotrix_get_Hardware_version"
     //% block="get HW version"
     //% block.loc.cs="přečti HW verzi"
+    //% deprecated=true
     //% weight=50
     export function getHardwareVersion(): string {
-        if (RobotrixFWVersion <= FirwareVersion.V01) {
-            console.log("This function is only fupported in FW >0.2!");
-            return "NaN";
-        }
-        pins.i2cWriteNumber(EXPANDER_ADRESS, Math.trunc(parseInt("0x03020000")), NumberFormat.UInt32BE, false);
-
-        let buf = pins.i2cReadBuffer(EXPANDER_ADRESS, 6, false) // čti 6 bajtů
-        return convertBytesToString(buf);
+        return "";
     }
 
     /**
@@ -86,16 +106,10 @@ namespace Robotrix {
     //% blockId="robotrix_get_medi"
     //% block="get MEDI"
     //% block.loc.cs="přečti MEDI"
+    //% deprecated=true
     //% weight=50
     export function getMEDI(): string {
-        if (RobotrixFWVersion <= FirwareVersion.V01) {
-            console.log("This function is only fupported in FW >0.2!");
-            return "NaN";
-        }
-        pins.i2cWriteNumber(EXPANDER_ADRESS, Math.trunc(parseInt("0x03030000")), NumberFormat.UInt32BE, false);
-
-        let buf = pins.i2cReadBuffer(EXPANDER_ADRESS, 11, false) // čti 4 bajty
-        return convertBytesToString(buf);
+        return "";
     }
 
     function convertBytesToString(buf: Buffer): string {
@@ -107,4 +121,6 @@ namespace Robotrix {
         }
         return text;
     }
+
+
 }
