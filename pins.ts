@@ -4,6 +4,7 @@ namespace Robotrix {
     //% subcategory.loc.cs="Piny"
     //% block="Pin Outs"
     //% block.loc.cs="Pin výstupy"
+    //% deprecated=true
     export enum RobotrixPins {
         //% block="RP0"
         RP0,
@@ -42,6 +43,7 @@ namespace Robotrix {
     //% blockId="robotrix_RP_to_pin"
     //% block="Converet RP $rp to pin"
     //% block.loc.cs="převeď RP $rp na pin"
+    //% deprecated=true
     //% weight=80
     export function RPtoPin(rp: RobotrixPins): DigitalPin {
         switch (RobotrixHWVersion) {
@@ -115,6 +117,7 @@ namespace Robotrix {
     //% block="Read bolean value from %pin"
     //% block.loc.cs="Čti logickou hodnotu z %pin"
     //% weight=80
+    //% deprecated=true
     export function readBol(pin?: RobotrixPins): boolean {
         if (pin == RobotrixPins.NOPIN) return false;
         if (pins.digitalReadPin(RPtoPin(pin))) return true;

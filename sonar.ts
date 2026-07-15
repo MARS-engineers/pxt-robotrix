@@ -83,6 +83,7 @@ namespace Robotrix {
     //% blockId="robotrix_ultrasonic_connect"
     //% block="connect ultrasonic distance sensor"
     //% block.loc.cs="Zapni ultrazvukové senzory"
+    //% deprecated=true
     //% weight=80
     export function connectUltrasonicDistanceSensor(): void {
         switch (SonarConnectedTo) {
@@ -125,6 +126,7 @@ namespace Robotrix {
     //% blockId="robotrix_ultrasonic_disable"
     //% block="turn off ultrasonic distance sensors"
     //% block.loc.cs="Vypni ultrazvukové senzory"
+    //% deprecated=true
     //% weight=80
     export function disableUltrasonicDistanceSensor(): void {
         switch (SonarConnectedTo) {
@@ -143,6 +145,7 @@ namespace Robotrix {
     //% subcategory="Test"
     //% blockId=robotrix_ultrasonic_set_mode
     //% block="Set ultrasonic mode to $mode"
+    //% deprecated=true
     //% block.loc.cs="Nastav mód ultrazvukových senzorů na $mode"
     export function setUltrasonicSensorsMode(mode: SonarModes) {
         SonarMode = mode;
@@ -179,6 +182,7 @@ namespace Robotrix {
     //% blockId=robotrix_ultrasonic_on_object_detected
     //% block="object detected within | $distance | at direction $direction"
     //% block.loc.cs="překážka je detekována do vzdálenosti | $distance | ve směru | $direction |"
+    //% deprecated=true
     //% weight=69
     export function onUltrasonicObjectDetected(
         distance: number,
@@ -220,6 +224,7 @@ namespace Robotrix {
     //% blockId="robotrix_ultrasonic_distance"
     //% block.loc.cs="vzdálenost detekované překažky ve směru $direction"
     //% block="distance to the detected object in $direction"
+    //% deprecated=true
     //% weight=60
     export function getUltrasonicDistance(direction: SonarDirections): number {
         if (!ultrasonicState) {
@@ -239,6 +244,7 @@ namespace Robotrix {
     //% blockId="robotrix_ultrasonic_distance_all"
     //% block="distance measured by sonars"
     //% block.loc.cs="vzdálenost měřená všemi senzory"
+    //% deprecated=true
     //% weight=60
     export function getUltrasonicDistanceAll(): string {
         if (!ultrasonicState) return "-1";
@@ -262,6 +268,7 @@ namespace Robotrix {
     //% blockId="robotrix_ultrasonic_less_than"
     //% block="Object is not detected in direcion $direction at distance $distance"
     //% block.loc.cs="překážka není detekována ve směru | $direction do vzdálenosti | $distance"
+    //% deprecated=true
     //% weight=50
     export function isUltrasonicDistanceLessThan(
         direction: SonarDirections,

@@ -89,7 +89,7 @@ namespace Robotrix {
     //% blockId=robotrix_motors_move
     //% block="move in direction $direction at speed $speedPercent"
     //% speedPercent.min=-100 speedPercent.max=100
-    //% block.loc.cs="Jeď ve směru 2 $direction  rychlostí $speedPercent"
+    //% block.loc.cs="Jeď ve směru $direction  rychlostí $speedPercent"
     //% speedPercent.shadow="speedPicker"
     //% direction.fieldEditor="gridpicker"
     //% direction.fieldOptions.width=220

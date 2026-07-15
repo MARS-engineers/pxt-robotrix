@@ -37,6 +37,7 @@ namespace Robotrix {
     //% block="setup gas sensor"
     //% block.loc.cs="Zapni sensory"
     //% weight=100 blockGap=8
+    //% deprecated=true
     export function setupGasSensor(): void {
         if (bme688InitialiseFlag == false) {
             bme688Init()
@@ -56,6 +57,7 @@ namespace Robotrix {
     //% block="measure all data readings"
     //% block.loc.cs="Proveď měření sensorů"
     //% weight=100 blockGap=8
+    //% deprecated=true
     export function measureData(): void {
         if (bme688InitialiseFlag == false) {
             bme688Init()
@@ -81,6 +83,7 @@ namespace Robotrix {
     //% blockId=robotrix_sensor_establish_baselines
     //% block="establish gas baseline & ambient temperature"
     //% weight=85 blockGap=8
+    //% deprecated=true
     export function calcBaselines(): void {
         if (bme688InitialiseFlag == false) {
             bme688Init()
@@ -124,6 +127,7 @@ namespace Robotrix {
     //% block="Read Temperature"
     //% block.loc.cs="Naměřená teplota"
     //% weight=100 blockGap=8
+    //% deprecated=true
     export function readTemperature(): number {
         let temperature = kitronik_BME688.tRead
         return temperature
@@ -139,6 +143,7 @@ namespace Robotrix {
     //% block="Read Pressure"
     //% block.loc.cs="Naměřený tlak"
     //% weight=95 blockGap=8
+    //% deprecated=true
     export function readPressure(): number {
         let pressure = kitronik_BME688.pRead
 
@@ -155,6 +160,7 @@ namespace Robotrix {
     //% block="Read Humidity"
     //% block.loc.cs="Naměřená vlhkost"
     //% weight=80 blockGap=8
+    //% deprecated=true
     export function readHumidity(): number {
         return kitronik_BME688.hRead
     }
@@ -169,6 +175,7 @@ namespace Robotrix {
     //% block="Read eCO2"
     //% block.loc.cs="Naměřené množství eCO2"
     //% weight=95 blockGap=8
+    //% deprecated=true
     export function readeCO2(): number {
         if (gasInitialise == false) {
             return 0
@@ -189,6 +196,7 @@ namespace Robotrix {
     //% block="get IAQ \\%"
     //% block.loc.cs="Naměřená kvalita vzduchu"
     //% weight=85 blockGap=8
+    //% deprecated=true
     export function getAirQualityPercent(): number {
         if (gasInitialise == false) {
             return 0
@@ -208,6 +216,7 @@ namespace Robotrix {
     //% block="get IAQ Score"
     //% block.loc.cs="Skóre kvality vzduchu"
     //% weight=100 blockGap=8
+    //% deprecated=true
     export function getAirQualityScore(): number {
         if (gasInitialise == false) {
             return 0

@@ -9,6 +9,7 @@ namespace Robotrix {
     //% blockId="robotrix_send_Telemetry"
     //% block="send telemetry $payload as type $telemetry_type"
     //% block.loc.cs="pošli telemetrii $payload as typ $telemetry_type"
+    //% deprecated=true
     //% weight=80
     // Prepare packet and send it using callback
     export function sendTelemetry(payload: Buffer, telemetry_type: number): void {
@@ -49,6 +50,7 @@ namespace Robotrix {
     //% blockId="robotrix_on_receiveTelemetry"
     //% block="decode telemetry"
     //% block.loc.cs="dekóduj telemetrii"
+    //% deprecated=true
     //% weight=80
     export function onReceiveTelemetry() {
         // Read all available bytes
